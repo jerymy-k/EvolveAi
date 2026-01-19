@@ -37,7 +37,7 @@ class Database
                 PDO::ATTR_EMULATE_PREPARES => false,
             ]);
         } catch (PDOException $e) {
-            die("DB Connection errorr: " . $e->getMessage());
+            die("DB Connection erorr: " . $e->getMessage());
         }
 
         return $this->pdo ;
