@@ -95,6 +95,7 @@
             </div>
         </div>
     </div>
+
     <!-- Right Side: Sign Up Form -->
     <div class="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 md:p-20 bg-white dark:bg-background-dark">
         <div class="w-full max-w-md">
@@ -103,46 +104,70 @@
                 <span class="material-symbols-outlined text-4xl">rocket_launch</span>
                 <h2 class="text-2xl font-bold tracking-tight">AI Income Hub</h2>
             </div>
+
             <!-- Page Heading -->
             <div class="mb-10">
                 <h1 class="text-[#0d121b] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] mb-2">Create your account</h1>
                 <p class="text-[#4c669a] dark:text-gray-400 text-base font-normal">Join 5,000+ creators building their future with AI.</p>
             </div>
+
+            <!-- ✅ Message d'erreur -->
+            <?php if (!empty($error)): ?>
+                <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
+
             <!-- Registration Form -->
-            <form class="space-y-5" method="POST" action="/register"">
+            <form class="space-y-5" method="POST" action="/auth/register">
                 <!-- Full Name -->
                 <div class="flex flex-col">
                     <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">User Name</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">person</span>
-                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Enter your full name" name="username" type="text" required/>
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all"
+                            placeholder="Enter your full name"
+                            name="name"
+                            type="text"
+                            required
+                            value="<?= htmlspecialchars($_POST['name'] ?? '') ?>"
+                        />
                     </div>
                 </div>
+
                 <!-- Email -->
                 <div class="flex flex-col">
                     <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Email Address</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">mail</span>
-                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="name@example.com" type="email" name="email" required/>
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all"
+                            placeholder="name@example.com"
+                            type="email"
+                            name="email"
+                            required
+                            value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
+                        />
                     </div>
                 </div>
+
                 <!-- Password -->
                 <div class="flex flex-col">
                     <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Password</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
-                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-12 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Create a strong password" type="password" name="password" required/>
+                        <input
+                            class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-12 placeholder:text-[#4c669a] text-base font-normal transition-all"
+                            placeholder="Create a strong password"
+                            type="password"
+                            name="password"
+                            required
+                        />
                         <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-primary">visibility</span>
                     </div>
                 </div>
-                <div class="flex flex-col">
-                    <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Confirm your Password</label>
-                    <div class="relative">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
-                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-12 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Confirm your password" type="confirmPassword" name="password" required/>
-                        <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-primary">visibility</span>
-                    </div>
-                </div>
+
                 <!-- Action Buttons -->
                 <div class="pt-4 flex flex-col gap-4">
                     <button type="submit" class="w-full flex h-14 items-center justify-center rounded-lg bg-primary text-white text-base font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-[0.98]">
@@ -150,11 +175,13 @@
                     </button>
                 </div>
             </form>
+
             <!-- Login Link -->
             <p class="mt-8 text-center text-sm text-[#4c669a] dark:text-gray-400">
                 Already have an account?
-                <a class="text-primary font-bold hover:underline" href="#">Log in</a>
+                <a class="text-primary font-bold hover:underline" href="/auth/login">Log in</a>
             </p>
+
             <!-- Mobile Footer Links -->
             <div class="mt-auto pt-10 flex justify-center gap-6 text-[#4c669a] dark:text-slate-500 text-xs">
                 <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>

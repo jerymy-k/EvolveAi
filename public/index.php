@@ -1,11 +1,11 @@
 <?php
-session_start();
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../routes/web.php';
-require_once __DIR__ . '/../app/Core/Controller.php';
+declare(strict_types=1);
 
+session_start();
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use App\Core\Router;
 
 $router = new Router();
-$router->display();
-
-?>
+$router->dispatch();

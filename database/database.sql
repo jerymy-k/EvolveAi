@@ -133,3 +133,6 @@ CREATE TABLE likes (
     CONSTRAINT unique_user_article UNIQUE (user_id, article_id)
 );
 
+
+ALTER TABLE users RENAME COLUMN possword TO password;
+ALTER TABLE users RENAME COLUMN username TO name;

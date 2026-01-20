@@ -8,28 +8,28 @@ namespace App\Models;
 class User
 {
     private int $id;
+    private string $name;
     private string $username;
     private string $email;
     private string $password;
-    private string $confirmPassword;
-
-    
 
 
-    public function __construct($id,$username,$email, $password,$confirmPassword)
+    public function __construct($id, $name, $username, $email, $password)
     {
         $this->id = $id;
+        $this->name = $name;
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
-        $this->confirmPassword = $confirmPassword;
-
-
     }
 
     public function getId()
     {
         return $this->id;
+    }
+    public function getName()
+    {
+        return $this->name;
     }
     public function getUsername()
     {
@@ -45,13 +45,13 @@ class User
     {
         return $this->password;
     }
-    public function geconfirmtPassword()
-    {
-        return $this->confirmPassword;
-    }
     public function setId($id)
     {
         return $this->id = $id;
+    }
+    public function setName($name)
+    {
+        return $this->name = $name;
     }
     public function setUsername($username)
     {
@@ -66,9 +66,5 @@ class User
     public function setPassword($password)
     {
         return $this->password = $password;
-    }
-    public function setconfirmPassword($confirmPassword)
-    {
-        return $this->confirmPassword = $confirmPassword;
     }
 }

@@ -1,113 +1,81 @@
 <?php
+declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Core\Database;
 use App\Repositories\UserRepository;
-
-use App\Services\UserService;
-// use App\Models\User;
+use App\Services\AuthService;
 
 class AuthController extends Controller
 {
-    private UserRepository $userRepository;
-    private UserService $userService;
+    private AuthService $auth;
 
     public function __construct()
     {
-        session_start();
-        $this->userRepository = new UserRepository();
-        $this->userService = new UserService($this->userRepository);
+        $pdo = Database::getInstance()->getConnection();
+        $this->auth = new AuthService(new UserRepository($pdo));
     }
 
-    public function showLogin(): void
+    public function index(): void
     {
-        if ($this->isAuthenticated()) {
-            $this->redirect('/dashboard');
-        }
-
-        $this->view('auth/login.php');
+        $this->redirect('/auth/login');
     }
 
     public function login(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $this->redirect('/login');
+        if (!$this->isPost()) {
+            $error = $this->flash('error');
+            $this->view('auth.login', compact('error'));
+            return;
         }
 
-        $this->requireCSRF();
+        $email = (string) $this->post('email', '');
+        $password = (string) $this->post('password', '');
 
-        $emailOrUsername = $this->sanitize($_POST['emailOrUsername'] ?? '');
-        $password = $_POST['password'] ?? '';
+        $result = $this->auth->login($email, $password);
 
-        if (empty($emailOrUsername) || empty($password)) {
-            $_SESSION['error'] = 'Please fill all fields';
-            $this->redirect('/login');
+        if (!$result['ok']) {
+            $this->flash('error', $result['message']);
+            $this->redirect('/auth/login');
         }
 
-        $user = $this->userService->loginUser($emailOrUsername, $password);
+        $user = $result['user'];
 
-        if ($user) {
-            session_regenerate_id(true);
-            $_SESSION['user_id'] = $user->getId();
-            $_SESSION['user_email'] = $user->getEmail();
-            $_SESSION['success'] = 'Login successful!';
-            $this->redirect('/dashboard');
-        } else {
-            $_SESSION['error'] = 'Invalid credentials';
-            $this->redirect('/login');
-        }
-    }
+        $_SESSION['user_id'] = (int) $user['id'];
+        $_SESSION['user_name'] = $user['name'];
+        $_SESSION['user_email'] = $user['email'];
 
-    public function showRegister(): void
-    {
-        if ($this->isAuthenticated()) {
-            $this->redirect('/dashboard');
-        }
-
-        $this->view('auth/Register.php');
+        $this->redirect('/dashboard/index');
     }
 
     public function register(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            $this->redirect('/register');
+        if (!$this->isPost()) {
+            $error = $this->flash('error');
+            $this->view('auth.register', compact('error'));
+            return;
         }
 
-        $this->requireCSRF();
+        $name = (string) $this->post('name', '');
+        $email = (string) $this->post('email', '');
+        $password = (string) $this->post('password', '');
 
-        $name = $this->sanitize($_POST['Fullname'] ?? '');
-        $username = $this->sanitize($_POST['username'] ?? '');
-        $email = filter_var($_POST['email'] ?? '', FILTER_VALIDATE_EMAIL);
-        $password = $_POST['password'] ?? '';
+        $result = $this->auth->register($name, $email, $password);
 
-        if (empty($name) || empty($username) || !$email || empty($password)) {
-            $_SESSION['error'] = 'Please fill all fields correctly';
-            $this->redirect('/register');
+        if (!$result['ok']) {
+            $this->flash('error', $result['message']);
+            $this->redirect('/auth/register');
         }
 
-        try {
-            $user = $this->userService->register($name, $username, $email, $password);
-
-            if ($user) {
-                session_regenerate_id(true);
-                $_SESSION['user_id'] = $user->getId();
-                $_SESSION['user_email'] = $user->getEmail();
-                $_SESSION['success'] = 'Registration successful!';
-                $this->redirect('/dashboard');
-            } else {
-                $_SESSION['error'] = 'Registration failed';
-                $this->redirect('/register');
-            }
-        } catch (\Exception $e) {
-            $_SESSION['error'] = $e->getMessage();
-            $this->redirect('/register');
-        }
+        $this->flash('error', 'Compte créé. Connecte-toi.');
+        $this->redirect('/auth/login');
     }
 
     public function logout(): void
     {
         session_destroy();
-        $this->redirect('/login');
+        $this->redirect('/auth/login');
     }
 }

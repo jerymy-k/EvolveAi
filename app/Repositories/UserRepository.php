@@ -1,95 +1,42 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Models\User;
-use App\Core\Database;
 use PDO;
 
-class UserRepository implements UserRepositoryInterface
+class UserRepository
 {
-    private $db;
-    private $pdo;
+    public function __construct(private PDO $pdo) {}
 
-    public function __construct()
+    public function findByEmail(string $email): ?array
     {
-        $this->db = Database::getInstance();
-        $this->pdo = $this->db->getConnection();
-    }
-
-    public function create(User $user): User
-{
-    $sql = "INSERT INTO users (username, email, password)
-            VALUES (:username, :email, :password)";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute([
-        ':username' => $user->getUsername(),
-        ':email' => $user->getEmail(),
-        ':password' => $user->getPassword()
-    ]);
-
-    $id = $this->pdo->lastInsertId();
-    $user->setId($id);
-
-    return $user;
-}
-
-    public function findByEmail($email)
-    {
-        $sql = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
         $stmt->execute([':email' => $email]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password'],$row['confirmPassword'] );
-        }
-        return null;
+        return $user ?: null;
     }
 
-    public function findByUsername($username)
+    public function getById(int $id): ?array
     {
-        $sql = "SELECT * FROM users WHERE username = :username";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':username' => $username]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password'],$row['confirmPassword']);
-        }
-        return null;
-    }
-
-    public function findById($id)
-    {
-        $sql = "SELECT * FROM users WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare("SELECT id, name, email FROM users WHERE id = :id LIMIT 1");
         $stmt->execute([':id' => $id]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password'] ,$row['confirmPassword']);
-        }
-        return null;
+        return $user ?: null;
     }
 
-    public function update(User $user)
+    public function create(string $name, string $email, string $hashPassword): bool
     {
-        $sql = "UPDATE users SET  username = :username, email = :email, password = :password WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare(
+            "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)"
+        );
+
         return $stmt->execute([
-            ':id' => $user->getId(),
-            ':username' => $user->getUsername(),
-            ':email' => $user->getEmail(),
-            ':password' => $user->getPassword()
+            ':name' => $name,
+            ':email' => $email,
+            ':password' => $hashPassword,
         ]);
-    }
-
-    public function delete($id)
-    {
-        $sql = "DELETE FROM users WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([':id' => $id]);
     }
 }

@@ -1,42 +1,63 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Services;
 
 use App\Repositories\UserRepository;
-use App\Models\User;
 
-class UserService
+class AuthService
 {
-    private UserRepository $userRepository;
+    public function __construct(private UserRepository $users) {}
 
-    public function __construct(UserRepository $userRepository)
+    private function passwordStrong(string $password): bool
     {
-        $this->userRepository = $userRepository;
+        return (bool) preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $password);
     }
 
-    public function register($fullname, $username, $email, $password)
+    public function register(string $name, string $email, string $password): array
     {
-        if ($this->userRepository->findByEmail($email) || $this->userRepository->findByUsername($username)) {
-            return false;
+        $name = trim($name);
+        $email = trim(strtolower($email));
+
+        if ($name === '' || $email === '' || $password === '') {
+            return ['ok' => false, 'message' => 'Tous les champs sont obligatoires.'];
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $user = new User(0, $fullname, $username, $email, $hashedPassword);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return ['ok' => false, 'message' => "Email invalide."];
+        }
 
-        return $this->userRepository->create($user);
+        if (!$this->passwordStrong($password)) {
+            return ['ok' => false, 'message' => "Mot de passe faible (8+ / maj / min / chiffre)."];
+        }
+
+        if ($this->users->findByEmail($email)) {
+            return ['ok' => false, 'message' => "Email déjà utilisé."];
+        }
+
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+
+        $created = $this->users->create($name, $email, $hash);
+
+        return $created
+            ? ['ok' => true, 'message' => 'Compte créé.']
+            : ['ok' => false, 'message' => "Erreur création compte."];
     }
 
-    public function loginUser($identifier, $password)
+    public function login(string $email, string $password): array
     {
-        $user = $this->userRepository->findByEmail($identifier);
-        if (!$user) {
-            $user = $this->userRepository->findByUsername($identifier);
+        $email = trim(strtolower($email));
+
+        if ($email === '' || $password === '') {
+            return ['ok' => false, 'message' => 'Email et mot de passe requis.'];
         }
 
-        if ($user && password_verify($password, $user->getPassword())) {
-            return $user;
+        $user = $this->users->findByEmail($email);
+
+        if (!$user || !password_verify($password, $user['password'])) {
+            return ['ok' => false, 'message' => 'Identifiants incorrects.'];
         }
 
-        return null;
+        return ['ok' => true, 'user' => $user];
     }
 }

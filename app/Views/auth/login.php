@@ -84,6 +84,7 @@
             <!-- Absolute positioned abstract image element for texture -->
             <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
         </div>
+
         <!-- Right Side: Login Form Panel -->
         <div class="flex flex-1 flex-col justify-center px-6 py-12 lg:px-24 bg-background-light dark:bg-background-dark">
             <div class="mx-auto w-full max-w-[480px]">
@@ -104,34 +105,59 @@
                         Enter your credentials to access your AI Income Hub dashboard.
                     </p>
                 </header>
-                <form class="flex flex-col gap-5">
+
+                <!-- ✅ Message d'erreur (flash) -->
+                <?php if (!empty($error)): ?>
+                    <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        <?= htmlspecialchars($error) ?>
+                    </div>
+                <?php endif; ?>
+
+                <!-- ✅ FORM: method + action -->
+                <form class="flex flex-col gap-5" method="POST" action="/auth/login">
                     <!-- Email Field -->
                     <div class="flex flex-col gap-2">
                         <label class="text-[#0d121b] dark:text-white text-sm font-semibold">Email Address</label>
-                        <input class="form-input w-full rounded-lg border-[#cfd7e7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 px-4 text-base placeholder:text-[#4c669a] focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="name@company.com" required="" type="email" />
+                        <input
+                            class="form-input w-full rounded-lg border-[#cfd7e7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 px-4 text-base placeholder:text-[#4c669a] focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                            placeholder="name@company.com"
+                            required
+                            type="email"
+                            name="email"
+                            value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
+                        />
                     </div>
+
                     <!-- Password Field -->
                     <div class="flex flex-col gap-2">
                         <div class="flex justify-between items-center">
                             <label class="text-[#0d121b] dark:text-white text-sm font-semibold">Password</label>
-                            <a class="text-primary text-sm font-medium hover:underline" href="#">Forgot password?</a>
+                            <a class="text-primary text-sm font-medium hover:underline" href="/auth/forgotPassword">Forgot password?</a>
                         </div>
                         <div class="relative">
-                            <input class="form-input w-full rounded-lg border-[#cfd7e7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 px-4 pr-12 text-base placeholder:text-[#4c669a] focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="••••••••" required="" type="password" name="password" />
+                            <input
+                                class="form-input w-full rounded-lg border-[#cfd7e7] dark:border-slate-700 bg-white dark:bg-slate-900 h-14 px-4 pr-12 text-base placeholder:text-[#4c669a] focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                                placeholder="••••••••"
+                                required
+                                type="password"
+                                name="password"
+                            />
                         </div>
                     </div>
+
                     <!-- Submit Button -->
                     <button class="flex w-full items-center justify-center rounded-lg bg-primary h-14 text-white text-base font-bold tracking-wide hover:bg-blue-700 transition-colors shadow-lg shadow-primary/20 mt-2" type="submit">
                         Sign In
                     </button>
-                    
                 </form>
+
                 <!-- Footer Component -->
                 <p class="mt-10 text-center text-[#4c669a] dark:text-slate-400 text-sm">
                     Don't have an account?
-                    <a class="text-primary font-bold hover:underline ml-1" href="#">Create an account</a>
+                    <a class="text-primary font-bold hover:underline ml-1" href="/auth/register">Create an account</a>
                 </p>
             </div>
+
             <!-- Mobile Footer Links -->
             <div class="mt-auto pt-10 flex justify-center gap-6 text-[#4c669a] dark:text-slate-500 text-xs">
                 <a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
