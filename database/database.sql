@@ -62,3 +62,72 @@ CREATE TABLE opportunities (
         ON DELETE CASCADE
 );
 
+CREATE TABLE ai_plans (
+    id NT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    opportunity_id INT NOT NULL,
+    user_id BIGINT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    goal TEXT,
+    aimed_skills TEXT[],
+    start_date DATE NOT NULL,
+    end_date DATE,
+    created_at TIMESTAMP DEFAULT NOW(),
+
+    CONSTRAINT fk_ai_plan_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_ai_plan_opp
+        FOREIGN KEY (opportunity_id)
+        REFERENCES opportunities(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE daily_tasks (
+    id BIGSERIAL PRIMARY KEY,
+    plan_id BIGINT NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    user_submission TEXT,
+    ai_feedback TEXT,
+    task_date DATE NOT NULL,
+    status VARCHAR(20) DEFAULT 'not_started',
+    task_order SMALLINT,
+    created_at TIMESTAMP DEFAULT NOW(),
+
+    CONSTRAINT fk_task_plan FOREIGN KEY (plan_id) REFERENCES ai_plans(id) ON DELETE CASCADE
+);
+
+CREATE TABLE articles (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id INT NOT NULL,
+    image_name VARCHAR(255),
+    title VARCHAR(150) NOT NULL,
+    description TEXT,
+    body TEXT NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT NOW(),
+
+    CONSTRAINT fk_article_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE likes (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id INT NOT NULL,
+    article_id BIGINT NOT NULL,
+    liked_at TIMESTAMP DEFAULT NOW(),
+
+    CONSTRAINT fk_likes_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_likes_article
+        FOREIGN KEY (article_id)
+        REFERENCES articles(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT unique_user_article UNIQUE (user_id, article_id)
+);
+
