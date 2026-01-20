@@ -2,21 +2,8 @@
 
 namespace App\Core;
 
-<<<<<<< HEAD
 class Controller
 {
-    protected function view(string $view, array $data = []): void
-    {
-        extract($data);
-        $viewPath = __DIR__ . '/../views/' . $view;
-
-        if (file_exists($viewPath)) {
-            require $viewPath;
-        } else {
-            die("View not found: {$view}");
-        }
-    }
-
     protected function redirect(string $url): void
     {
         header("Location: {$url}");
@@ -73,10 +60,9 @@ class Controller
             return is_string($value) ? $this->sanitize($value) : $value;
         }, $data);
     }
-=======
-public function view($path,$data = []){
-    extract($data);
-    require "../app/Views/" . $path . ".php";
-}
->>>>>>> deec5dec28fe0ee89594870ae1d444359b165c92
+    public function view($path, $data = [])
+    {
+        extract($data);
+        require "../app/Views/" . $path . ".php";
+    }
 }

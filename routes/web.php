@@ -10,20 +10,19 @@ class Router
         $controllerName = ucfirst(array_shift($url)) . "Controller";
         $method = array_shift($url) ?? "index";
         $params = $url;
-
         $controllerPath = "../app/Controllers/$controllerName.php";
-
+        echo $controllerPath;
 
         require_once $controllerPath;
 
-        if (!class_exists($controllerName)) {
-            require_once __DIR__ . "/../app/Controllers/NotfoundController.php";
-            $error = new NotfoundController();
-            $error->index();
-            return;
-        }
+        // if (!class_exists($controllerName)) {
+        //     require_once __DIR__ . "/../app/Controllers/NotfoundController.php";
+        //     $error = new NotfoundController();
+        //     $error->index();
+        //     return;
+        // }
 
-
+        echo $controllerName;
         $controller = new $controllerName();
 
         if (!method_exists($controller, $method)) {
