@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+<<<<<<< HEAD
 class Controller
 {
     protected function view(string $view, array $data = []): void
@@ -72,4 +73,10 @@ class Controller
             return is_string($value) ? $this->sanitize($value) : $value;
         }, $data);
     }
+=======
+public function view($path,$data = []){
+    extract($data);
+    require "../app/Views/" . $path . ".php";
+}
+>>>>>>> deec5dec28fe0ee89594870ae1d444359b165c92
 }
