@@ -4,6 +4,6 @@ class Controller{
 
 public function view($path,$data = []){
     extract($data);
-    require "../app/views/" . $path . ".php";
+    require "../app/Views/" . $path . ".php";
 }
 }
