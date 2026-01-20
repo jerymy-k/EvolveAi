@@ -109,13 +109,13 @@
                 <p class="text-[#4c669a] dark:text-gray-400 text-base font-normal">Join 5,000+ creators building their future with AI.</p>
             </div>
             <!-- Registration Form -->
-            <form class="space-y-5" onsubmit="event.preventDefault();">
+            <form class="space-y-5" method="POST" action="/register"">
                 <!-- Full Name -->
                 <div class="flex flex-col">
-                    <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Full Name</label>
+                    <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">User Name</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">person</span>
-                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Enter your full name" type="text" required/>
+                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Enter your full name" name="username" type="text" required/>
                     </div>
                 </div>
                 <!-- Email -->
@@ -123,7 +123,7 @@
                     <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Email Address</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">mail</span>
-                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="name@example.com" type="email" required/>
+                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-4 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="name@example.com" type="email" name="email" required/>
                     </div>
                 </div>
                 <!-- Password -->
@@ -131,13 +131,21 @@
                     <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Password</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
-                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-12 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Create a strong password" type="password"  required/>
+                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-12 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Create a strong password" type="password" name="password" required/>
+                        <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-primary">visibility</span>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-[#0d121b] dark:text-gray-200 text-sm font-semibold leading-normal pb-2">Confirm your Password</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">lock</span>
+                        <input class="form-input flex w-full min-w-0 flex-1 rounded-lg text-[#0d121b] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#cfd7e7] dark:border-gray-700 bg-background-light dark:bg-gray-800 focus:border-primary h-14 pl-12 pr-12 placeholder:text-[#4c669a] text-base font-normal transition-all" placeholder="Confirm your password" type="confirmPassword" name="password" required/>
                         <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-primary">visibility</span>
                     </div>
                 </div>
                 <!-- Action Buttons -->
                 <div class="pt-4 flex flex-col gap-4">
-                    <button class="w-full flex h-14 items-center justify-center rounded-lg bg-primary text-white text-base font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-[0.98]">
+                    <button type="submit" class="w-full flex h-14 items-center justify-center rounded-lg bg-primary text-white text-base font-bold shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-[0.98]">
                         Create Account
                     </button>
                 </div>
