@@ -53,7 +53,7 @@ CREATE TABLE opportunities (
     required_skill VARCHAR(100),
     money_gain NUMERIC(12,2),
     link VARCHAR(255),
-    status VARCHAR(20) DEFAULT 'not_started'
+    status VARCHAR(20) DEFAULT 'not_started',
     created_at TIMESTAMP DEFAULT NOW(),
 
     CONSTRAINT fk_opportunity_user
@@ -84,7 +84,7 @@ CREATE TABLE ai_plans (
 );
 
 CREATE TABLE daily_tasks (
-    id NT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     plan_id INT NOT NULL,
     name VARCHAR(150) NOT NULL,
     user_submission TEXT,
