@@ -1,10 +1,12 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../routes/web.php';
+require_once __DIR__ . '/../app/Core/Controller.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
 
-use App\Core\Database;
+$router = new Router();
+$router->display();
 
-$db = Database::getInstance();
-$pdo = $db->getConnection();
+
+
+?>
