@@ -8,3 +8,4 @@ use App\Core\Database;
 
 $db = Database::getInstance();
 $pdo = $db->getConnection();
+
