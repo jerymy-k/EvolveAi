@@ -1,10 +1,12 @@
 CREATE TABLE users (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(255)   NOT NULL UNIQUE,
     possword TEXT        NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+
 
 
 CREATE TABLE survey_responses (
@@ -131,3 +133,6 @@ CREATE TABLE likes (
     CONSTRAINT unique_user_article UNIQUE (user_id, article_id)
 );
 
+
+ALTER TABLE users RENAME COLUMN possword TO password;
+ALTER TABLE users RENAME COLUMN username TO name;
