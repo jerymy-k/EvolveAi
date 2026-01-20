@@ -67,3 +67,4 @@ class Controller
         require "../app/Views/" . $path . ".php";
     }
 }
+
