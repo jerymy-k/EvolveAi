@@ -1,6 +1,21 @@
 <?php 
+    namespace App\Controllers;
+
+    use App\Core\Controller;
+    use App\Core\Database;
+    
     class QuestionnaireController extends Controller{
-        public function showQuestionnaire(){
-            $this->view('profile/questionnaire');
+        public function __construct()
+        {
+            $pdo = Database::getInstance()->getConnection();
+        }
+        
+        public function index(): void
+        {
+            $this->redirect('/profile/questionnaire');
+        }
+        
+        public function questionnaire(){
+            $this->view('profile.questionnaire');
         }
     }
