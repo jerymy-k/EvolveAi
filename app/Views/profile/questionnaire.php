@@ -93,7 +93,7 @@
             <!-- Progress Bar Section -->
             <div class="flex flex-col gap-3">
                 <div class="flex gap-6 justify-between items-end">
-                    <p class="text-gray-900 dark:text-white text-sm font-semibold uppercase tracking-wider">Step <span id="currentStep">2</span> of 6</p>
+                    <p class="text-gray-900 dark:text-white text-sm font-semibold uppercase tracking-wider" id="completion">Step <span id="currentStep"></span> of 8</p>
                     <p class="text-gray-900 dark:text-white text-sm font-medium"><span id="currentPercentage"></span> Complete</p>
                 </div>
                 <div class="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
@@ -193,6 +193,79 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+            <div class="question hidden" id="specific-skills-step">
+                <div class="text-center py-4">
+                    <h1 class="text-gray-900 dark:text-white tracking-tight text-4xl font-extrabold leading-tight mb-3">
+                        What are your core skills?
+                    </h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-lg font-normal max-w-xl mx-auto">
+                        Select the tools and technologies you master. This helps us find the exact high-paying gigs for you.
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-gray-700 dark:text-gray-300 font-bold mb-3 flex items-center gap-2">
+                        <span class="material-symbols-outlined">code</span> Web Development
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div data-skill="react" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">React.js</div>
+                        <div data-skill="tailwind" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Tailwind CSS</div>
+                        <div data-skill="python" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Python</div>
+                        <div data-skill="node" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Node.js</div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-gray-700 dark:text-gray-300 font-bold mb-3 flex items-center gap-2">
+                        <span class="material-symbols-outlined">palette</span> Creative & Design
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div data-skill="figma" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Figma</div>
+                        <div data-skill="photoshop" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Adobe Photoshop</div>
+                        <div data-skill="ui-ux" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">UI/UX Design</div>
+                    </div>
+                </div>
+            </div>
+            <div class="question hidden" id="device-selection-step">
+                <div class="text-center py-4">
+                    <h1 class="text-gray-900 dark:text-white tracking-tight text-4xl font-extrabold leading-tight mb-3">
+                        Which device are you using?
+                    </h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-lg font-normal max-w-xl mx-auto">
+                        This helps us suggest tools and workflows that work best for your current setup.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div data-value="phone"
+                        class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
+                        <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
+                            <span class="material-symbols-outlined text-3xl">smartphone</span>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-900 dark:text-white text-lg font-bold">Smartphone / Tablet</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">I prefer working on the go using mobile apps and interfaces.</p>
+                        </div>
+                        <div class="check-icon absolute top-4 right-4 text-primary hidden">
+                            <span class="material-symbols-outlined">check_circle</span>
+                        </div>
+                    </div>
+
+                    <div data-value="pc"
+                        class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
+                        <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
+                            <span class="material-symbols-outlined text-3xl">desktop_windows</span>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-900 dark:text-white text-lg font-bold">Computer / Laptop</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">I use a desktop environment for more complex tasks and multitasking.</p>
+                        </div>
+                        <div class="check-icon absolute top-4 right-4 text-primary hidden">
+                            <span class="material-symbols-outlined">check_circle</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="question hidden" id="employment-step">
@@ -475,6 +548,12 @@
 
                 </div>
             </div>
+            <div class="question hidden">
+                <h2>Congratulations, you finished the survey</h2>
+                <h3 class="text-gray-400">click next to go to the dashboard page and take a look at the oppotunities our Ai have found for you based on your answers</h3>
+                <br>
+                <h4 class="text-gray-400 text-1">you can always change your answers in the profile page and even answer more questions to help us provide more precise oppotunities</h4>
+            </div>
             <!-- Footer Navigation -->
             <div class="flex items-center justify-between pt-8 pb-12">
                 <button class="flex items-center gap-2 px-6 py-3 rounded-lg font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" id="prevBtn">
@@ -501,6 +580,7 @@
     const currentStep = document.querySelector("#currentStep");
     const currentPercentage = document.querySelector("#currentPercentage");
     const progressBar = document.querySelector("#progress_bar")
+    const completion = document.querySelector("#completion")
 
     let step = 0;
     let percentage = 0;
@@ -512,6 +592,8 @@
     let answers = {
         age_range: null,
         main_goal: null,
+        specific_skills: [],
+        device_used: null,
         employment_status: null,
         work_schedule: null,
         ai_familiarity: null,
@@ -520,6 +602,8 @@
     const stepKeys = [
         'age_range',
         'main_goal',
+        'specific_skills',
+        'device_used',
         'employment_status',
         'work_schedule',
         'ai_familiarity',
@@ -531,11 +615,30 @@
 
     cards.forEach(card => {
         card.addEventListener('click', (e) => {
-            cards.forEach(c => c.classList.remove('selected-card'));
-            cards.forEach(c => c.classList.add('unselected-card'));
-            card.classList.add('selected-card');
-            card.classList.remove('unselected-card');
-            currentAnswer = e.currentTarget.dataset.value;
+            const parentQuestion = card.closest('.question');
+            const isMultiSelect = parentQuestion.id === 'specific-skills-step';
+
+            if (isMultiSelect) {
+                card.classList.toggle('selected-card');
+                card.classList.toggle('unselected-card');
+
+                const value = card.dataset.skill;
+                if (answers.specific_skills.includes(value)) {
+                    answers.specific_skills = answers.specific_skills.filter(s => s !== value);
+                } else {
+                    answers.specific_skills.push(value);
+                }
+                currentAnswer = answers.specific_skills;
+            } else {
+                const questionCards = parentQuestion.querySelectorAll('.card');
+                questionCards.forEach(c => {
+                    c.classList.remove('selected-card');
+                    c.classList.add('unselected-card');
+                });
+                card.classList.add('selected-card');
+                card.classList.remove('unselected-card');
+                currentAnswer = card.dataset.value;
+            }
         });
     });
 
@@ -543,21 +646,27 @@
         questions.forEach((q, i) => {
             q.classList.toggle('hidden', i !== step);
             currentStep.textContent = step + 1;
-            currentPercentage.textContent = percentage + "%";
+            currentPercentage.textContent = Math.round(percentage) + "%";
             progressBar.style.width = percentage + '%';
-            console.log(progressBar.style.width);
-
         });
+        console.log(answers);
     }
 
     document.querySelector('#nextBtn').addEventListener('click', (e) => {
         if (step < questions.length - 1) {
+            if (stepKeys[step] == "daily_time_investment") {
+                document.querySelector('#nextBtn').classList.add("hidden");
+                completion.textContent = 'completed';
+            }
             if (currentAnswer) {
-                step++;
-                percentage+= 17;
+                console.log(step);
+                console.log(stepKeys[step]);
                 answers[stepKeys[step]] = currentAnswer;
                 currentAnswer = null;
-                progressBar.style.width = +17;
+                
+                step++;
+                percentage += 12.5;
+                progressBar.style.width = percentage + '%';
                 showstep(step);
             }
         }
@@ -566,6 +675,9 @@
     document.querySelector('#prevBtn').addEventListener('click', (e) => {
         if (step > 0) {
             step--;
+            percentage -= 12.5;
+            progressBar.style.width = -12.5 + '%';
+
             showstep(step);
         }
     });
