@@ -3,7 +3,7 @@ CREATE TABLE users (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(255)   NOT NULL UNIQUE,
-    possword TEXT        NOT NULL,
+    password TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -56,8 +56,8 @@ CREATE TABLE opportunities (
     required_skill VARCHAR(100),
     money_gain NUMERIC(12,2),
     link VARCHAR(255),
-    status ENUM('not_started', 'in_progress', 'completed') NOT NULL DEFAULT 'not_started',
     created_at TIMESTAMP DEFAULT NOW(),
+    status VARCHAR(20) DEFAULT 'not_started' NOT NULL,
 
     CONSTRAINT fk_opportunity_user
         FOREIGN KEY (user_id)
@@ -68,7 +68,7 @@ CREATE TABLE opportunities (
 CREATE TABLE ai_plans (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     opportunity_id INT NOT NULL,
-    user_id BIGINT NOT NULL,
+    user_id INT NOT NULL,
     title VARCHAR(150) NOT NULL,
     goal TEXT,
     aimed_skills TEXT[],
@@ -87,13 +87,13 @@ CREATE TABLE ai_plans (
 );
 
 CREATE TABLE daily_tasks (
-    id BIGSERIAL PRIMARY KEY,
-    plan_id BIGINT NOT NULL,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    plan_id INT NOT NULL,
     name VARCHAR(150) NOT NULL,
     user_submission TEXT,
     ai_feedback TEXT,
     task_date DATE NOT NULL,
-    status VARCHAR(20) DEFAULT 'not_started',
+    status VARCHAR(20) DEFAULT 'not_started' NOT NULL,
     task_order SMALLINT,
     created_at TIMESTAMP DEFAULT NOW(),
 
@@ -119,7 +119,7 @@ CREATE TABLE articles (
 CREATE TABLE likes (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INT NOT NULL,
-    article_id BIGINT NOT NULL,
+    article_id INT NOT NULL,
     liked_at TIMESTAMP DEFAULT NOW(),
 
     CONSTRAINT fk_likes_user
@@ -137,3 +137,5 @@ CREATE TABLE likes (
 
 ALTER TABLE users RENAME COLUMN possword TO password;
 ALTER TABLE users RENAME COLUMN username TO name;
+ALTER TABLE ai_plans ADD status VARCHAR(20) DEFAULT 'not_started' NOT NULL;
+

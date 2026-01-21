@@ -1,16 +1,21 @@
 <?php 
-    class QuestionnaireController{
+    namespace App\Controllers;
+
+    use App\Core\Controller;
+    use App\Core\Database;
+    
+    class QuestionnaireController extends Controller{
         public function __construct()
         {
-
+            $pdo = Database::getInstance()->getConnection();
         }
-
-        public function showQuestionnaire(){
-            $pageTitle = "profile";
-
-            ob_start();
-            include  "../app/Views/profile/questionnaire.php";
-            
-            $content = ob_get_clean();
-            }
+        
+        public function index(): void
+        {
+            $this->redirect('/profile/questionnaire');
+        }
+        
+        public function questionnaire(){
+            $this->view('profile.questionnaire');
+        }
     }
