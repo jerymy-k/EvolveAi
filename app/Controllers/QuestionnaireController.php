@@ -12,7 +12,7 @@
         
         public function index(): void
         {
-            $this->redirect('/profile/questionnaire');
+            $this->redirect('/questionnaire/questionnaire');
         }
         
         public function questionnaire(){
