@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 THIS_SHOULD_BREAK
+=======
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+RewriteRule ^ index.php [QSA,L]
+>>>>>>> 352aa4a203e8294ca166277c403ac8542234f86c
