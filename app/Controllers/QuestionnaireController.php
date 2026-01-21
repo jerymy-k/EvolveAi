@@ -3,6 +3,7 @@
 
     use App\Core\Controller;
     use App\Core\Database;
+    use App\Services\QuestionnaireService;
     
     class QuestionnaireController extends Controller{
         public function __construct()
@@ -18,4 +19,20 @@
         public function questionnaire(){
             $this->view('profile.questionnaire');
         }
+
+        public function submit(): void {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        if (!$data) {
+            echo json_encode(['success' => false, 'message' => 'No data received']);
+            return;
+        }
+
+        $service = new QuestionnaireService();
+        $result = $service->handleSurvey($data);
+
+        header('Content-Type: application/json');
+        echo json_encode($result);
+    }
     }

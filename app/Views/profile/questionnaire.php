@@ -669,6 +669,8 @@
                 progressBar.style.width = percentage + '%';
                 showstep(step);
             }
+        }else{
+            submitSurvey()
         }
     });
 
@@ -681,4 +683,26 @@
             showstep(step);
         }
     });
+
+    async function submitSurvey() {
+    try {
+        const response = await fetch('survey_controller.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(answers)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            window.location.href = 'dashboard.php';
+        } else {
+            alert("Validation Error: " + result.message);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 </script>
