@@ -8,7 +8,6 @@ class QuestionnaireService {
     $requiredFields = [
         'age_range', 
         'main_goal', 
-        'specific_skills', 
         'used_device', 
         'employment_status', 
         'work_schedule', 
@@ -17,17 +16,9 @@ class QuestionnaireService {
     ];
     
     foreach ($requiredFields as $field) {
-        if (!isset($data[$field])) {
-            return ['success' => false, 'message' => "Field {$field} is missing from request."];
-        }
-
-        if ($field === 'specific_skills') {
-            if (!is_array($data[$field]) || count($data[$field]) === 0) {
-                return ['success' => false, 'message' => "Please select at least one skill."];
-            }
-        } else {
-            if (trim((string)$data[$field]) === '') {
-                return ['success' => false, 'message' => "Field {$field} cannot be empty."];
+        foreach ($requiredFields as $field) {
+            if (!isset($data[$field]) || empty($data[$field])) {
+                return ['success' => false, 'message' => "Field {$field} is required."];
             }
         }
     }

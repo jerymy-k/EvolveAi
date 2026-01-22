@@ -20,29 +20,18 @@ class QuestionnaireRepository
 
         $stmt = $this->db->prepare($sql);
 
-        $mainSaved = $stmt->execute([
+        return $stmt->execute([
             ':user_id'               => $_SESSION['user_id'],
             ':age_range'             => $data['age_range'],
             ':main_goal'             => $data['main_goal'],
+            ':interest_areas'        => $data['interest_areas'],
             ':used_device'           => $data['used_device'],
             ':employment_status'     => $data['employment_status'],
+            ':current_career'        => $data['current_career'],
+            ':previous_career'       => $data['previous_career'],
             ':work_schedule'         => $data['work_schedule'],
             ':ai_confidence'         => $data['ai_familiarity'],
             ':daily_time_investment' => $data['daily_time_investment'],
         ]);
-
-        if ($mainSaved && isset($data['specific_skills']) && is_array($data['specific_skills'])) {
-            $skillSql = "INSERT INTO user_skills (user_id, skill_name) VALUES (:user_id, :skill_name)";
-            $skillStmt = $this->db->prepare($skillSql);
-
-            foreach ($data['specific_skills'] as $skill) {
-                $skillStmt->execute([
-                    ':user_id'    => $_SESSION['user_id'],
-                    ':skill_name' => $skill
-                ]);
-            }
-        }
-
-        return $mainSaved;
     }
 }

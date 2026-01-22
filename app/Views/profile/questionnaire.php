@@ -93,7 +93,7 @@
             <!-- Progress Bar Section -->
             <div class="flex flex-col gap-3">
                 <div class="flex gap-6 justify-between items-end">
-                    <p class="text-gray-900 dark:text-white text-sm font-semibold uppercase tracking-wider" id="completion">Step <span id="currentStep"></span> of 8</p>
+                    <p class="text-gray-900 dark:text-white text-sm font-semibold uppercase tracking-wider" id="completion">Step <span id="currentStep"></span> of 10</p>
                     <p class="text-gray-900 dark:text-white text-sm font-medium"><span id="currentPercentage"></span> Complete</p>
                 </div>
                 <div class="h-2 w-full rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden">
@@ -889,6 +889,8 @@
                 if (stepKeys[step] == "daily_time_investment") {
                     completion.textContent = 'completed';
                     document.querySelector('#nextBtn').textContent = "Finish setup";
+                }else{
+                    document.querySelector('#nextBtn').textContent = "Next";
                 }
 
                 step++;
