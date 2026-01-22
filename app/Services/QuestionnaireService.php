@@ -32,7 +32,7 @@ class QuestionnaireService {
         }
     }
 
-    $repo = new \App\Repositories\QuestionnaireRepository();
+    $repo = new QuestionnaireRepository();
     $isSaved = $repo->saveAnswers($data);
 
     return [
