@@ -252,7 +252,7 @@
                         <span class="font-semibold">E-commerce</span>
                     </div>
 
-                    <div data-value="consulting-strategy" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                    <div data-value="consulting_strategy" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
                         <span class="material-symbols-outlined text-xl">lightbulb</span>
                         <span class="font-semibold">Consulting & Strategy</span>
                     </div>

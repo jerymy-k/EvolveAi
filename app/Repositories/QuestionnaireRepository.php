@@ -15,8 +15,11 @@ class QuestionnaireRepository
 
     public function saveAnswers($data)
     {
-        $sql = "INSERT INTO survey_responses (user_id, age_range, main_goal, used_device, employment_status, work_schedule, ai_confidence, daily_time_investment) 
-                VALUES (:user_id, :age_range, :main_goal, :used_device, :employment_status, :work_schedule, :ai_confidence, :daily_time_investment)";
+        $interestAreas = !empty($data['interest_areas'])
+            ? '{' . implode(',', $data['interest_areas'])  .'}'
+            : '{}';
+        $sql = "INSERT INTO survey_responses (user_id, age_range, main_goal, interest_areas, used_device, employment_status, current_career, previous_career, work_schedule, ai_confidence, daily_time_investment) 
+                VALUES (:user_id, :age_range, :main_goal, :interest_areas, :used_device, :employment_status, :current_career, :previous_career, :work_schedule, :ai_confidence, :daily_time_investment)";
 
         $stmt = $this->db->prepare($sql);
 
@@ -24,7 +27,7 @@ class QuestionnaireRepository
             ':user_id'               => $_SESSION['user_id'],
             ':age_range'             => $data['age_range'],
             ':main_goal'             => $data['main_goal'],
-            ':interest_areas'        => $data['interest_areas'],
+            ':interest_areas'        => $interestAreas,
             ':used_device'           => $data['used_device'],
             ':employment_status'     => $data['employment_status'],
             ':current_career'        => $data['current_career'],
