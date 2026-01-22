@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Login - AI Income Hub</title>
+    <title>Login - EvolveAi</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
         rel="stylesheet" />
@@ -88,8 +88,7 @@
                             <p class="text-white/60 text-xs">Community Member</p>
                         </div>
                     </div>
-                    <p class="text-white/90 italic">"The AI Hub analytics helped me scale my workflow 5x. Best
-                        investment of the year."</p>
+                    <p class="text-white/90 italic">"The EvolveAi analytics helped me scale my workflow 5x. Best investment of the year."</p>
                 </div>
             </div>
             <!-- Absolute positioned abstract image element for texture -->
@@ -110,14 +109,14 @@
                                     fill="currentColor" fill-rule="evenodd"></path>
                             </svg>
                         </div>
-                        <span class="text-[#0d121b] dark:text-white font-bold text-lg">AI Income Hub</span>
+                        <span class="text-[#0d121b] dark:text-white font-bold text-lg">EvolveAi</span>
                     </div>
                     <h1
                         class="text-[#0d121b] dark:text-white text-3xl font-black leading-tight tracking-tight sm:text-4xl">
                         Welcome back
                     </h1>
                     <p class="text-[#4c669a] dark:text-slate-400 text-base">
-                        Enter your credentials to access your AI Income Hub dashboard.
+                        Enter your credentials to access your EvolveAi dashboard.
                     </p>
                 </header>
 

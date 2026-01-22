@@ -88,7 +88,7 @@
                     <span class="truncate">Send Reset Link</span>
                 </button>
             </form>
-            <!-- Navigation Link ->
+            <!-- Navigation Link -->
             <div class="mt-8">
                 <a class="flex items-center gap-2 text-primary font-semibold text-sm hover:underline" href="#">
                     <span class="material-symbols-outlined text-lg" data-icon="arrow_back">arrow_back</span>
