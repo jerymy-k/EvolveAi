@@ -15,6 +15,7 @@ CREATE TABLE survey_responses (
     -- Phase 1 (signup)
     age_range VARCHAR(10) NOT NULL,
     main_goal VARCHAR(50) NOT NULL,
+    used_device VARCHAR(50) NOT NULL,
     employment_status VARCHAR(50) NOT NULL,
     work_schedule VARCHAR(50) NOT NULL,
     ai_confidence VARCHAR(50) NOT NULL,
@@ -37,8 +38,8 @@ CREATE TABLE user_skills (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INT NOT NULL,
     skill_name VARCHAR(50),
-    mastery SMALLINT NOT NULL,
-    category VARCHAR(50) NOT NULL,
+    mastery SMALLINT DEFAULT 50,
+    category VARCHAR(50),
     created_at TIMESTAMP DEFAULT NOW(),
     
     CONSTRAINT fk_skills_user
@@ -46,6 +47,10 @@ CREATE TABLE user_skills (
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+
+SELECT * from survey_responses
+
+SELECT * from user_skills
 
 CREATE TABLE opportunities (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
