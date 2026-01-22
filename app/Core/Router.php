@@ -15,10 +15,10 @@ class Router
         $method     = $segments[1] ?? 'index';
         $params     = array_slice($segments, 2);
 
-        $controllerClass = "App\\Controllers\\{$controller}";
+        $controllerClass = "App\Controllers\\$controller";
 
         if (!class_exists($controllerClass)) {
-            $controllerClass = "App\\Controllers\\NotfoundController";
+            $controllerClass = "App\Controllers\NotfoundController";
             $method = 'index';
             $params = [];
         }

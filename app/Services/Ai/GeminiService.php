@@ -23,7 +23,7 @@ Form data:
 {Name: John Doe  
 Email: john@example.com  
 Service Requested: WordPress website optimization  
-Main Concern: Low performance and SEO issues  
+Main Concern: Low performance and SEO issues
 Urgency: High  
 Additional Notes: Website traffic has dropped recently
 }
@@ -38,7 +38,7 @@ class GeminiService
         if (self::$client === null) {
             $apiKey = $_ENV['GEMINI_API_KEY'];
 
-            self::$client = \Gemini::client($apiKey);
+            self::$client = Gemini::client($apiKey);
         }
         return self::$client;
     }

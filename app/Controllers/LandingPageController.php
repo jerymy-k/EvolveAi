@@ -2,10 +2,11 @@
 
 namespace App\Controllers;
 
-class LandingPageController
+use App\Core\Controller;
+class LandingPageController extends Controller
 {
     public function index(): void
     {
-        require __DIR__ . '/../Views/landingPage/landingPage.php';
+        $this->view('/landingpage/landingpage');
     }
 }
