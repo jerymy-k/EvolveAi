@@ -38,8 +38,8 @@ CREATE TABLE user_skills (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INT NOT NULL,
     skill_name VARCHAR(50),
-    mastery SMALLINT DEFAULT 'not_specified',
-    category VARCHAR(50) NOT NULL,
+    mastery SMALLINT DEFAULT 50,
+    category VARCHAR(50),
     created_at TIMESTAMP DEFAULT NOW(),
     
     CONSTRAINT fk_skills_user
@@ -47,6 +47,10 @@ CREATE TABLE user_skills (
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+
+SELECT * from survey_responses
+
+SELECT * from user_skills
 
 CREATE TABLE opportunities (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

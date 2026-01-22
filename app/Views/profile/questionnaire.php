@@ -593,7 +593,7 @@
         age_range: null,
         main_goal: null,
         specific_skills: [],
-        device_used: null,
+        used_device: null,
         employment_status: null,
         work_schedule: null,
         ai_familiarity: null,
@@ -603,7 +603,7 @@
         'age_range',
         'main_goal',
         'specific_skills',
-        'device_used',
+        'used_device',
         'employment_status',
         'work_schedule',
         'ai_familiarity',
@@ -654,23 +654,24 @@
 
     document.querySelector('#nextBtn').addEventListener('click', (e) => {
         if (step < questions.length - 1) {
-            if (stepKeys[step] == "daily_time_investment") {
-                document.querySelector('#nextBtn').classList.add("hidden");
-                completion.textContent = 'completed';
-            }
+
             if (currentAnswer) {
-                console.log(step);
-                console.log(stepKeys[step]);
                 answers[stepKeys[step]] = currentAnswer;
                 currentAnswer = null;
-                
+
+                if (stepKeys[step] == "daily_time_investment") {
+                    completion.textContent = 'completed';
+                    document.querySelector('#nextBtn').textContent = "Finish setup";
+                }
+
                 step++;
                 percentage += 12.5;
                 progressBar.style.width = percentage + '%';
                 showstep(step);
-            }
-        }else{
-            submitSurvey()
+            } 
+        }
+        else {
+            submitSurvey();
         }
     });
 
@@ -684,25 +685,24 @@
         }
     });
 
+    // Inside your <script>
     async function submitSurvey() {
-    try {
-        const response = await fetch('survey_controller.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(answers)
-        });
+        try {
+            const response = await fetch('/questionnaire/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(answers)
+            });
 
-        const result = await response.json();
+            const result = await response.json();
 
-        if (result.success) {
-            window.location.href = 'dashboard.php';
-        } else {
-            alert("Validation Error: " + result.message);
+            if (result.success) {
+                window.location.href = '/dashboard';
+            }
+        } catch (error) {
+            console.error("Error communicating with server:", error);
         }
-    } catch (error) {
-        console.error("Error:", error);
     }
-}
 </script>
