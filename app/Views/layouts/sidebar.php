@@ -15,6 +15,10 @@
                     <span class="material-symbols-outlined">dashboard</span>
                     <p class="text-sm font-semibold">Dashboard</p>
                 </a>
+                <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#0d121b] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="/opportunity">
+                    <span class="material-symbols-outlined">lightbulb</span>
+                    <p class="text-sm font-medium">AI Opportunities</p>
+                </a>
                 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#0d121b] dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="#">
                     <span class="material-symbols-outlined">school</span>
                     <p class="text-sm font-medium">Learning Paths</p>
