@@ -7,7 +7,9 @@ use PDO;
 
 class UserRepository
 {
-    public function __construct(private PDO $pdo) {}
+    public function __construct(private PDO $pdo)
+    {
+    }
 
     public function findByEmail(string $email): ?array
     {
@@ -39,4 +41,30 @@ class UserRepository
             ':password' => $hashPassword,
         ]);
     }
+    public function setResetToken(int $userId, string $token): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE users SET reset_token = :t WHERE id = :id");
+        return $stmt->execute([':t' => $token, ':id' => $userId]);
+    }
+
+    public function findByResetToken(string $token): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE reset_token = :t LIMIT 1");
+        $stmt->execute([':t' => $token]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user ?: null;
+    }
+
+    public function clearResetToken(int $userId): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE users SET reset_token = NULL WHERE id = :id");
+        return $stmt->execute([':id' => $userId]);
+    }
+
+    public function updatePassword(int $userId, string $hashPassword): bool
+    {
+        $stmt = $this->pdo->prepare("UPDATE users SET password = :p WHERE id = :id");
+        return $stmt->execute([':p' => $hashPassword, ':id' => $userId]);
+    }
+
 }

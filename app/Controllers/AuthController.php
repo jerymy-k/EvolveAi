@@ -72,10 +72,66 @@ class AuthController extends Controller
         $this->flash('error', 'Compte créé. Connecte-toi.');
         $this->redirect('/auth/login');
     }
-
+    
     public function logout(): void
     {
         session_destroy();
         $this->redirect('/auth/login');
     }
+    public function forgotPassword(): void
+    {
+        if (!$this->isPost()) {
+            $error = $this->flash('error');
+            $success = $this->flash('success');
+            $this->view('auth.forgot', compact('error', 'success'));
+            return;
+        }
+
+        $email = (string) $this->post('email', '');
+        $result = $this->auth->forgetPassword($email);
+
+        if (!$result['ok']) {
+            $this->flash('error', $result['message']);
+            $this->redirect('/auth/forgotPassword');
+        }
+
+        $this->flash('success', $result['message']);
+        $this->redirect('/auth/forgotPassword');
+    }
+
+    public function resetPassword(): void
+    {
+        $token = (string) ($_GET['token'] ?? '');
+        $check = $this->auth->verifyResetToken($token);
+
+        if (!$check['ok']) {
+            $this->flash('error', $check['message']);
+            $this->redirect('/auth/login');
+        }
+
+        $error = $this->flash('error');
+        $this->view('auth.reset', compact('error', 'token'));
+    }
+
+    public function updatePassword(): void
+    {
+        if (!$this->isPost()) {
+            $this->redirect('/auth/login');
+        }
+
+        $token = (string) $this->post('token', '');
+        $password = (string) $this->post('password', '');
+
+        $result = $this->auth->updatePasswordWithToken($token, $password);
+
+        if (!$result['ok']) {
+            $this->flash('error', $result['message']);
+            $this->redirect('/auth/resetPassword?token=' . urlencode($token));
+        }
+
+        $this->flash('success', $result['message'] . ' Connecte-toi.');
+        $this->redirect('/auth/login');
+    }
+
+
 }
