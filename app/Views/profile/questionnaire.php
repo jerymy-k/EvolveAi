@@ -125,7 +125,7 @@
                     </div>
                 </div>
             </div>
-            <div class="question hidden">
+            <div class="question hidden" id="main-goal-step">
                 <div class="text-center py-4">
                     <h1 class="text-gray-900 dark:text-white tracking-tight text-4xl font-extrabold leading-tight mb-3">
                         What is your main goal?
@@ -195,38 +195,90 @@
 
                 </div>
             </div>
-            <div class="question hidden" id="specific-skills-step">
+            <div class="question hidden" id="interest-areas-step">
                 <div class="text-center py-4">
                     <h1 class="text-gray-900 dark:text-white tracking-tight text-4xl font-extrabold leading-tight mb-3">
-                        What are your core skills?
+                        What areas would you love to explore?
                     </h1>
                     <p class="text-gray-500 dark:text-gray-400 text-lg font-normal max-w-xl mx-auto">
-                        Select the tools and technologies you master. This helps us find the exact high-paying gigs for you.
+                        Select all that apply. This helps us find the exact high-paying gigs for you.
                     </p>
                 </div>
 
-                <div class="mb-6">
-                    <h3 class="text-gray-700 dark:text-gray-300 font-bold mb-3 flex items-center gap-2">
-                        <span class="material-symbols-outlined">code</span> Web Development
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <div data-skill="react" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">React.js</div>
-                        <div data-skill="tailwind" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Tailwind CSS</div>
-                        <div data-skill="python" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Python</div>
-                        <div data-skill="node" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Node.js</div>
+                <div class="flex flex-wrap justify-center gap-3 mt-8 max-w-4xl mx-auto">
+
+                    <div data-value="design" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">palette</span>
+                        <span class="font-semibold">Design & Creativity</span>
                     </div>
+
+                    <div data-value="writing" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">edit_note</span>
+                        <span class="font-semibold">Writing & Blogging</span>
+                    </div>
+
+                    <div data-value="web" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">language</span>
+                        <span class="font-semibold">Web Projects</span>
+                    </div>
+
+                    <div data-value="ai_automation" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">smart_toy</span>
+                        <span class="font-semibold">AI & Automation</span>
+                    </div>
+
+                    <div data-value="marketing" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">ads_click</span>
+                        <span class="font-semibold">Marketing & Ads</span>
+                    </div>
+
+                    <div data-value="social" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">share</span>
+                        <span class="font-semibold">Social Media Tasks</span>
+                    </div>
+
+                    <div data-value="video" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">videocam</span>
+                        <span class="font-semibold">Video Projects</span>
+                    </div>
+
+                    <div data-value="photography" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">photo_camera</span>
+                        <span class="font-semibold">Photography</span>
+                    </div>
+
+                    <div data-value="ecommerce" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">shopping_cart</span>
+                        <span class="font-semibold">E-commerce</span>
+                    </div>
+
+                    <div data-value="consulting-strategy" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">lightbulb</span>
+                        <span class="font-semibold">Consulting & Strategy</span>
+                    </div>
+
+                </div>
+                <div class="mt-8 max-w-lg mx-auto">
+                    <div class="relative flex items-center">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400">add</span>
+                        </div>
+                        <input
+                            type="text"
+                            id="custom-interest"
+                            placeholder="Can't find yours? Type it here..."
+                            class="block w-full pl-11 pr-32 py-3 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-full text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary focus:border-solid transition-all outline-none">
+                        <button
+                            type="button"
+                            class="add-pill-btn absolute right-2 px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary/90 transition-colors">
+                            Add Area
+                        </button>
+                    </div>
+                    <p class="text-center text-gray-400 text-xs mt-3 italic">
+                        Press enter or click 'Add Area' to add it to the selection.
+                    </p>
                 </div>
 
-                <div class="mb-6">
-                    <h3 class="text-gray-700 dark:text-gray-300 font-bold mb-3 flex items-center gap-2">
-                        <span class="material-symbols-outlined">palette</span> Creative & Design
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        <div data-skill="figma" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Figma</div>
-                        <div data-skill="photoshop" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">Adobe Photoshop</div>
-                        <div data-skill="ui-ux" class="card px-4 py-2 rounded-full unselected-card cursor-pointer hover:bg-primary/10 transition-all">UI/UX Design</div>
-                    </div>
-                </div>
             </div>
             <div class="question hidden" id="device-selection-step">
                 <div class="text-center py-4">
@@ -279,7 +331,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                     <div data-value="employed"
                         class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
                         <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
@@ -336,6 +387,170 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+            <div class="question hidden" id="current-career-step">
+                <div class="text-center py-4">
+                    <h1 class="text-gray-900 dark:text-white tracking-tight text-4xl font-extrabold leading-tight mb-3">
+                        What is your current role?
+                    </h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-lg font-normal max-w-xl mx-auto">
+                        Select your current or most recent job. This helps us match opportunities to your professional experience.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3 mt-8 max-w-4xl mx-auto">
+                    <div data-value="software-engineer" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">code</span>
+                        <span class="font-semibold">Software Engineer</span>
+                    </div>
+
+                    <div data-value="data-analyst" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">monitoring</span>
+                        <span class="font-semibold">Data Analyst</span>
+                    </div>
+
+                    <div data-value="digital-marketer" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">campaign</span>
+                        <span class="font-semibold">Digital Marketer</span>
+                    </div>
+
+                    <div data-value="sales-representative" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">sell</span>
+                        <span class="font-semibold">Sales Representative</span>
+                    </div>
+
+                    <div data-value="customer-support" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">support_agent</span>
+                        <span class="font-semibold">Customer Support</span>
+                    </div>
+
+                    <div data-value="content-creator" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">video_library</span>
+                        <span class="font-semibold">Content Creator</span>
+                    </div>
+
+                    <div data-value="project-manager" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">account_tree</span>
+                        <span class="font-semibold">Project Manager</span>
+                    </div>
+
+                    <div data-value="graphic-designer" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">brush</span>
+                        <span class="font-semibold">Graphic Designer</span>
+                    </div>
+
+                    <div data-value="administrative-assistant" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">badge</span>
+                        <span class="font-semibold">Admin Assistant</span>
+                    </div>
+
+                    <div data-value="educator-teacher" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">history_edu</span>
+                        <span class="font-semibold">Educator / Teacher</span>
+                    </div>
+                    <div data-value="unemployed" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">history_edu</span>
+                        <span class="font-semibold">Unemployed</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 max-w-lg mx-auto">
+                    <div class="relative flex items-center">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400">work_history</span>
+                        </div>
+                        <input
+                            type="text"
+                            id="custom-career"
+                            placeholder="Other job title..."
+                            class="block w-full pl-11 pr-32 py-3 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-full text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary focus:border-solid transition-all outline-none">
+                        <button
+                            type="button"
+                            class="add-pill-btn absolute right-2 px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary/90 transition-colors">
+                            Add Job
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="question hidden" id="previous-career-step">
+                <div class="text-center py-4">
+                    <h1 class="text-gray-900 dark:text-white tracking-tight text-4xl font-extrabold leading-tight mb-3">
+                        What was your previous role?
+                    </h1>
+                    <p class="text-gray-500 dark:text-gray-400 text-lg font-normal max-w-xl mx-auto">
+                        Knowing your background helps us identify transferable skills that could double your AI earning potential.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3 mt-8 max-w-4xl mx-auto">
+                    <div data-value="hospitality-tourism" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">luggage</span>
+                        <span class="font-semibold">Hospitality & Tourism</span>
+                    </div>
+
+                    <div data-value="retail-sales" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">shopping_bag</span>
+                        <span class="font-semibold">Retail & Sales</span>
+                    </div>
+
+                    <div data-value="healthcare-medical" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">medical_services</span>
+                        <span class="font-semibold">Healthcare</span>
+                    </div>
+
+                    <div data-value="manual-labor-trades" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">construction</span>
+                        <span class="font-semibold">Trades & Labor</span>
+                    </div>
+
+                    <div data-value="finance-accounting" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">account_balance</span>
+                        <span class="font-semibold">Finance / Accounting</span>
+                    </div>
+
+                    <div data-value="legal-services" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">gavel</span>
+                        <span class="font-semibold">Legal Services</span>
+                    </div>
+
+                    <div data-value="marketing-comms" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">hub</span>
+                        <span class="font-semibold">Marketing / PR</span>
+                    </div>
+
+                    <div data-value="manufacturing-logistics" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">precision_manufacturing</span>
+                        <span class="font-semibold">Manufacturing</span>
+                    </div>
+
+                    <div data-value="government-ngo" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">public</span>
+                        <span class="font-semibold">Gov / NGO</span>
+                    </div>
+
+                    <div data-value="no-prior-experience" class="card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50">
+                        <span class="material-symbols-outlined text-xl">history</span>
+                        <span class="font-semibold">None (First Job)</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 max-w-lg mx-auto">
+                    <div class="relative flex items-center">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400">rebase_edit</span>
+                        </div>
+                        <input
+                            type="text"
+                            id="custom-prev-career"
+                            placeholder="Other past role..."
+                            class="block w-full pl-11 pr-32 py-3 bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-full text-gray-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-primary focus:border-solid transition-all outline-none">
+                        <button
+                            type="button"
+                            class="add-pill-btn absolute right-2 px-4 py-1.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primary/90 transition-colors">
+                            Add Past
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="question hidden" id="schedule-step">
@@ -592,9 +807,11 @@
     let answers = {
         age_range: null,
         main_goal: null,
-        specific_skills: [],
+        interest_areas: [],
         used_device: null,
         employment_status: null,
+        current_career: null,
+        previous_career: null,
         work_schedule: null,
         ai_familiarity: null,
         daily_time_investment: null
@@ -602,44 +819,54 @@
     const stepKeys = [
         'age_range',
         'main_goal',
-        'specific_skills',
+        'interest_areas',
         'used_device',
         'employment_status',
+        'current_career',
+        'previous_career',
         'work_schedule',
         'ai_familiarity',
         'daily_time_investment'
     ];
 
-    const cards = document.querySelectorAll('.card');
+    let cards = document.querySelectorAll('.card');
     let currentAnswer = null;
 
-    cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            const parentQuestion = card.closest('.question');
-            const isMultiSelect = parentQuestion.id === 'specific-skills-step';
+    document.addEventListener('click', (e) => {
+        // Look for the closest .card element from the click target
+        const card = e.target.closest('.card');
 
-            if (isMultiSelect) {
-                card.classList.toggle('selected-card');
-                card.classList.toggle('unselected-card');
+        // If the click wasn't on a card, or if it's inside the custom input area, ignore it
+        if (!card || e.target.closest('#custom-interest') || e.target.closest('#add-interest-btn')) return;
 
-                const value = card.dataset.skill;
-                if (answers.specific_skills.includes(value)) {
-                    answers.specific_skills = answers.specific_skills.filter(s => s !== value);
-                } else {
-                    answers.specific_skills.push(value);
-                }
-                currentAnswer = answers.specific_skills;
+        const parentQuestion = card.closest('.question');
+        const isMultiSelect = parentQuestion && parentQuestion.id === 'interest-areas-step';
+
+        if (isMultiSelect) {
+            // MULTI-SELECT LOGIC (Interest Areas)
+            card.classList.toggle('selected-card');
+            card.classList.toggle('unselected-card');
+
+            const value = card.dataset.value;
+            if (answers.interest_areas.includes(value)) {
+                answers.interest_areas = answers.interest_areas.filter(s => s !== value);
             } else {
-                const questionCards = parentQuestion.querySelectorAll('.card');
-                questionCards.forEach(c => {
-                    c.classList.remove('selected-card');
-                    c.classList.add('unselected-card');
-                });
-                card.classList.add('selected-card');
-                card.classList.remove('unselected-card');
-                currentAnswer = card.dataset.value;
+                answers.interest_areas.push(value);
             }
-        });
+            // Sync the currentAnswer variable for the "Next" button check
+            currentAnswer = answers.interest_areas.length > 0 ? answers.interest_areas : null;
+
+        } else if (parentQuestion) {
+            // SINGLE-SELECT LOGIC (Everything else)
+            const questionCards = parentQuestion.querySelectorAll('.card');
+            questionCards.forEach(c => {
+                c.classList.remove('selected-card');
+                c.classList.add('unselected-card');
+            });
+            card.classList.add('selected-card');
+            card.classList.remove('unselected-card');
+            currentAnswer = card.dataset.value;
+        }
     });
 
     function showstep(step) {
@@ -665,12 +892,11 @@
                 }
 
                 step++;
-                percentage += 12.5;
+                percentage = ((step + 1) / questions.length) * 100;
                 progressBar.style.width = percentage + '%';
                 showstep(step);
-            } 
-        }
-        else {
+            }
+        } else {
             submitSurvey();
         }
     });
@@ -678,11 +904,55 @@
     document.querySelector('#prevBtn').addEventListener('click', (e) => {
         if (step > 0) {
             step--;
-            percentage -= 12.5;
-            progressBar.style.width = -12.5 + '%';
+            percentage = ((step + 1) / questions.length) * 100;
+            progressBar.style.width = percentage + '%';
 
             showstep(step);
         }
+    });
+
+    const addBtns = document.querySelectorAll('.add-pill-btn');
+
+    function addCustomPill() {
+        // Find the currently active question step
+        const activeStep = questions[step];
+
+        // Find the input and container specifically inside this active step
+        const input = activeStep.querySelector('input[type="text"]');
+        const container = activeStep.querySelector('.flex-wrap');
+
+        if (!input || !container) return;
+
+        const val = input.value.trim();
+        if (val === "") return;
+
+        const valSlug = val.toLowerCase().replace(/\s+/g, '-');
+
+        // Create the new pill
+        const newPill = document.createElement('div');
+        // We keep it as 'unselected-card' because the .click() call below 
+        // will trigger your global listener to select it and add it to the 'answers' object.
+        newPill.className = 'card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50';
+        newPill.setAttribute('data-value', valSlug);
+        newPill.innerHTML = `
+        <span class="material-symbols-outlined text-xl">stars</span>
+        <span class="font-semibold">${val}</span>
+    `;
+
+        // Append, clear, and auto-select
+        container.appendChild(newPill);
+        input.value = "";
+
+        // This triggers your global document.addEventListener('click') logic
+        newPill.click();
+    }
+
+    // 2. Attach the listener to all buttons found
+    addBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            addCustomPill();
+        });
     });
 
     // Inside your <script>
