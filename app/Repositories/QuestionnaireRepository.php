@@ -21,7 +21,7 @@ class QuestionnaireRepository
         $stmt = $this->db->prepare($sql);
 
         $mainSaved = $stmt->execute([
-            ':user_id'               => $_SESSION['user_id'] ?? 1,
+            ':user_id'               => $_SESSION['user_id'],
             ':age_range'             => $data['age_range'],
             ':main_goal'             => $data['main_goal'],
             ':used_device'           => $data['used_device'],
@@ -37,7 +37,7 @@ class QuestionnaireRepository
 
             foreach ($data['specific_skills'] as $skill) {
                 $skillStmt->execute([
-                    ':user_id'    => $_SESSION['user_id'] ?? 1,
+                    ':user_id'    => $_SESSION['user_id'],
                     ':skill_name' => $skill
                 ]);
             }
