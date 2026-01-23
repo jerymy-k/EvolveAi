@@ -22,8 +22,8 @@ class ProfileController extends Controller
     {
         $user_id = $_SESSION['user_id'] ?? '';
         $service = new ProfileService();
-        $service->getUserDataById($user_id);
-        $this->view('profile.profile');
+        $userData = $service->getUserDataById($user_id);
+        $this->view('profile.profile', ['userData' => $userData]);
     }
 
     public function changeUserData(){

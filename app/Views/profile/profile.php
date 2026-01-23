@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
-
+    <?php var_dump($userData) ?>
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -88,9 +88,8 @@
                 <div class="flex items-center justify-between mb-6">
                     <h3 class="text-lg font-bold flex items-center gap-2">
                         <span class="material-symbols-outlined text-primary">analytics</span>
-                        Complete AI Strategy Profile
+                        AI Strategy Profile
                     </h3>
-                    <span class="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full font-bold">Data Synced</span>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -100,30 +99,31 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border-l-4 border-primary">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Main Goal</p>
-                                <p class="text-sm font-bold">Career Transition</p>
+                                <p class="text-sm font-bold"><?= $userData['main_goal'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Age Range</p>
-                                <p class="text-sm font-bold">25-34</p>
+                                <p class="text-sm font-bold"><?= $userData['age_range'] ?></p>
                             </div>
                         </div>
 
 
                         <div class="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <p class="text-[10px] text-gray-500 uppercase mb-1">Interests</p>
-                            <div class="flex flex-wrap gap-1">
-                                <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold">Automation</span>
-                                <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold">Copywriting</span>
+                            <div class="flex flex-wrap gap-3">
+                            <?php foreach($userData['interest_areas'] as $interest):?>
+                                <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold"><?= $interest ?></span>
+                            <?php endforeach;?>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">AI Confidence</p>
-                                <p class="text-sm font-bold">Intermediate</p>
+                                <p class="text-sm font-bold"><?= $userData['ai_confidence'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -134,21 +134,21 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Career</p>
-                                <p class="text-sm font-bold">Full-time • Marketing</p>
+                                <p class="text-sm font-bold"><?= $userData['current_career'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Background</p>
-                                <p class="text-sm font-bold italic text-gray-600">Sales (Previous)</p>
+                                <p class="text-sm font-bold italic text-gray-600"><?= $userData['previous_career'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Schedule & Availability</p>
-                                <p class="text-sm font-bold">9-5 Shift • 2h/day</p>
+                                <p class="text-sm font-bold"><?= $userData['work_schedule'] ?></p>
                             </div>
                         </div>
 
@@ -175,7 +175,7 @@
                             </div>
 
                             <div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 dark:border-red-800">
-                                <p class="text-[10px] text-red-600 dark:text-red-400 uppercase font-bold">Pain Points</p>
+                                <p class="text-[10px] text-red-600 dark:text-red-400 uppercase font-bold">Work Issues</p>
                                 <p class="text-sm font-medium">Burnout, Manual Tasks</p>
                             </div>
                         </div>

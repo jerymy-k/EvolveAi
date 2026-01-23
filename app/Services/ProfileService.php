@@ -7,7 +7,30 @@ class ProfileService
 {
     public function getUserDataById($user_id){
         $repo = new ProfileRepository();
-        $repo->getUserData($user_id);
+        $userData = $repo->getUserData($user_id);
+
+        $userData['interest_areas'] = $this->parsePostgresArray($userData['interest_areas']);
+        $userData['work_issues'] = $this->parsePostgresArray($userData['work_issues']);
+
+        $userData = array_map(function ($item) {
+            if (is_string($item))
+                return ucwords(str_replace('_', ' ', $item));
+            return $item;
+            }
+            , $userData);
+
+        return $userData;
+    }
+
+    private function parsePostgresArray($postgresStr)
+    {
+        if (empty($postgresStr) || $postgresStr === '{}') {
+            return [];
+        }
+        
+        return array_map(function ($item) {
+            return trim($item, '" ');
+        }, explode(',', trim($postgresStr, '{}')));
     }
 
     public function handleSurvey($data) {

@@ -565,7 +565,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                    <div data-value="fixed_day"
+                    <div data-value="typical_9-to-5_or_morning-to-afternoon"
                         class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
                         <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
                             <span class="material-symbols-outlined text-3xl">schedule</span>

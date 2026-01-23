@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Core\Database;
+use PDO;
+
 
 class ProfileRepository
 {
@@ -13,14 +15,25 @@ class ProfileRepository
         $this->db = Database::getInstance()->getConnection();
     }
 
-    public function getUserData($user_id){
-        $sql = ""
+    public function getUserData($user_id)
+    {
+        $sql = "SELECT * FROM survey_responses WHERE user_id = :user_id";
+
+        $stmt = $this->db->prepare($sql);
+
+        $userData = $stmt->execute([':user_id' => $user_id]);
+        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$userData) return null;
+
+        return $userData;
     }
+
+    
 
     public function saveAnswers($data)
     {
         $interestAreas = !empty($data['interest_areas'])
-            ? '{' . implode(',', $data['interest_areas'])  .'}'
+            ? '{' . implode(',', $data['interest_areas'])  . '}'
             : '{}';
         $sql = "INSERT INTO survey_responses (user_id, age_range, main_goal, interest_areas, used_device, employment_status, current_career, previous_career, work_schedule, ai_confidence, daily_time_investment) 
                 VALUES (:user_id, :age_range, :main_goal, :interest_areas, :used_device, :employment_status, :current_career, :previous_career, :work_schedule, :ai_confidence, :daily_time_investment)";
