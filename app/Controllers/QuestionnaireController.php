@@ -34,7 +34,6 @@ class QuestionnaireController extends Controller
             exit;
         }
 
-        // Call the Service (The Brain)
         $service = new \App\Services\QuestionnaireService();
         $result = $service->handleSurvey($data);
 
