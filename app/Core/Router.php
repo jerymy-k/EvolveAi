@@ -17,19 +17,19 @@ class Router
 
         $controllerClass = "App\Controllers\\$controller";
 
-        if (!class_exists($controllerClass)) {
-            $controllerClass = "App\Controllers\NotfoundController";
-            $method = 'index';
-            $params = [];
-        }
+        // if (!class_exists($controllerClass)) {
+        //     $controllerClass = "App\Controllers\NotfoundController";
+        //     $method = 'index';
+        //     $params = [];
+        // }
 
         $instance = new $controllerClass();
 
-        if (!method_exists($instance, $method)) {
-            $instance = new \App\Controllers\NotfoundController();
-            $method = 'index';
-            $params = [];
-        }
+        // if (!method_exists($instance, $method)) {
+        //     $instance = new \App\Controllers\NotfoundController();
+        //     $method = 'index';
+        //     $params = [];
+        // }
 
         call_user_func_array([$instance, $method], $params);
     }

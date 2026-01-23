@@ -1,4 +1,4 @@
--- Active: 1768316909581@@127.0.0.1@5432@evolveai
+-- Active: 1768299581937@@127.0.0.1@5432@evolve_ai
 CREATE TABLE users (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -151,3 +151,5 @@ ALTER TABLE users
 ADD COLUMN IF NOT EXISTS reset_token VARCHAR(255);
 
 CREATE INDEX IF NOT EXISTS idx_users_reset_token ON users(reset_token);
+
+DROP TABLE survey_responses;

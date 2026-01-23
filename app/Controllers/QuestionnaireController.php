@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Controller;
 use App\Core\Database;
-use App\Services\QuestionnaireService;
+
 
 class QuestionnaireController extends Controller
 {
@@ -34,7 +34,6 @@ class QuestionnaireController extends Controller
             exit;
         }
 
-        // Call the Service (The Brain)
         $service = new \App\Services\QuestionnaireService();
         $result = $service->handleSurvey($data);
 

@@ -47,7 +47,7 @@ class AuthController extends Controller
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_email'] = $user['email'];
 
-        $this->redirect('/dashboard/index');
+        $this->redirect('/questionnaire/index');
     }
 
     public function register(): void
