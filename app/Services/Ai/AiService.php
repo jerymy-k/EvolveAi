@@ -146,10 +146,10 @@ final class AiService
         return $decoded;
     }
 
-   
+
     public static function generateOpportunitiesFromSurvey(array $surveyData): array
     {
-        
+
         $prompt = self::buildSurveyOpportunityPrompt($surveyData);
 
         $responseText = self::generateResponse($prompt);
@@ -178,73 +178,101 @@ final class AiService
     }
 
 
-    private static function buildSurveyOpportunityPrompt(array $surveyData): string{
-        $mainGoal = $surveyData['main_goal'];
-        $employmentStatus = $surveyData['employment_status'];
-        $workSchedule = $surveyData['work_schedule'];
-        $aiConfidence = $surveyData['ai_confidence'];
-        $timeInvestment = $surveyData['daily_time_investment'];
-        $ageRange = $surveyData['age_range'];
-        // Build the prompt
-        $prompt = <<<PROMPT
-                    You are an expert AI career and income opportunity advisor specializing in identifying personalized, realistic income opportunities.
+    private static function buildSurveyOpportunityPrompt(array $surveyData): string
+{
+    $mainGoal = $surveyData['main_goal'];
+    $interest_areas = $surveyData['interest_areas'];
+    $used_device = $surveyData['used_device'];
+    $employmentStatus = $surveyData['employment_status'];
+    $current_career = $surveyData['current_career'];
+    $previous_career = $surveyData['previous_career'];
+    $workSchedule = $surveyData['work_schedule'];
+    $aiConfidence = $surveyData['ai_confidence'];
+    $timeInvestment = $surveyData['daily_time_investment'];
+    $ageRange = $surveyData['age_range'];
 
-                    ANALYZE THIS USER PROFILE:
+    $prompt = <<<PROMPT
+You are an expert AI career and income opportunity advisor specialized in identifying personalized, realistic income opportunities based on user constraints (time, device, experience, and confidence with AI tools).
 
-                    BASIC INFO:
-                    - Age Range: {$ageRange}
-                    - Main Goal: {$mainGoal}
-                    - Employment Status: {$employmentStatus}
-                    - Work Schedule: {$workSchedule}
-                    - AI Confidence Level: {$aiConfidence}
-                    - Available Time: {$timeInvestment} per day
+ANALYZE THIS USER PROFILE:
 
-                    PROMPT;
+BASIC INFO:
+- Age Range: {$ageRange}
+- Main Goal: {$mainGoal}
+- Interest Areas: {$interest_areas}
+- Used Device: {$used_device}
+- Current Career: {$current_career}
+- Employment Status: {$employmentStatus}
+- Previous Career: {$previous_career}
+- Work Schedule: {$workSchedule}
+- AI Confidence Level: {$aiConfidence}
+- Available Time: {$timeInvestment} per day
+PROMPT;
 
-        $prompt .= "\n\nYOUR TASK:\n";
-        $prompt .= "Generate EXACTLY 5 realistic, actionable income opportunities tailored to this user profile.\n\n";
+    $prompt .= "\n\nYOUR TASK:\n";
+    $prompt .= "Generate EXACTLY 5 realistic, actionable income opportunities tailored to this user profile.\n";
+    $prompt .= "Each opportunity must be something the user can start with their current situation and device, and progress within 2-4 weeks.\n\n";
 
-        $prompt .= "REQUIREMENTS FOR EACH OPPORTUNITY:\n";
-        $prompt .= "1. Must be achievable with their available time ({$timeInvestment})\n";
-        $prompt .= "2. Must match their AI confidence level ({$aiConfidence})\n";
-        $prompt .= "3. Must align with their main goal ({$mainGoal})\n";
-        $prompt .= "4. Must consider their employment status ({$employmentStatus})\n";
-        $prompt .= "5. Must be realistic and based on current market demand\n";
-        $prompt .= "6. Must include specific platforms or marketplaces where applicable\n\n";
+    $prompt .= "HARD REQUIREMENTS (MUST FOLLOW):\n";
+    $prompt .= "1) Exactly 5 opportunities.\n";
+    $prompt .= "2) Each opportunity MUST fit the available time: {$timeInvestment} per day.\n";
+    $prompt .= "3) Must match AI confidence level: {$aiConfidence} (do NOT propose advanced AI workflows if confidence is low).\n";
+    $prompt .= "4) Must align with main goal: {$mainGoal} and interest areas: {$interest_areas}.\n";
+    $prompt .= "5) Must consider employment status: {$employmentStatus} and work schedule: {$workSchedule}.\n";
+    $prompt .= "6) Must be realistic and based on current market demand.\n";
+    $prompt .= "7) No generic ideas like “start a business” or “do dropshipping” unless you give a very concrete, low-risk starting path.\n\n";
 
-        $prompt .= "OUTPUT FORMAT:\n";
-        $prompt .= "Return ONLY a valid JSON array. No explanations, no markdown formatting, just pure JSON.\n\n";
+    $prompt .= "LINK REQUIREMENTS (VERY IMPORTANT):\n";
+    $prompt .= "- The \"link\" MUST be a REAL, WORKING URL to a trusted platform page.\n";
+    $prompt .= "- It must be SPECIFIC to the opportunity:\n";
+    $prompt .= "  * Prefer a direct category/listing/search page relevant to the opportunity.\n";
+    $prompt .= "  * If you cannot guarantee an exact job/listing ID, provide a highly targeted SEARCH URL with keywords and filters.\n";
+    $prompt .= "- Allowed platforms include (examples): Upwork, Fiverr, Freelancer, Malt, LinkedIn Jobs, Indeed, Etsy, Gumroad, Ko-fi, Amazon KDP, Udemy, YouTube, TikTok, Substack.\n";
+    $prompt .= "- DO NOT invent fake IDs or URLs. The URL must look valid and belong to the real domain.\n\n";
 
-        $prompt .= "Each opportunity object must have these EXACT fields:\n";
-        $prompt .= "{\n";
-        $prompt .= "  \"title\": \"Clear, concise opportunity name (max 60 characters)\",\n";
-        $prompt .= "  \"description\": \"Detailed description explaining what this involves, why it's suitable for them, and what they'll do (2-3 sentences)\",\n";
-        $prompt .= "  \"PossibleGain\": \"Realistic income estimate (e.g., '50-100', '500-1000', '1500-3000') - numbers only, no currency symbols\",\n";
-        $prompt .= "  \"skills\": [\"skill1\", \"skill2\", \"skill3\"],\n";
-        $prompt .= "  \"link\": \"https://actual-platform-url.com - must be a real, working URL\",\n";
-        $prompt .= "  \"status\": \"not_started\"\n";
-        $prompt .= "}\n\n";
+    $prompt .= "OPPORTUNITY QUALITY RULES:\n";
+    $prompt .= "1) Each opportunity must be UNIQUE (different type of work/marketplace).\n";
+    $prompt .= "2) Mix quick wins + long-term builds.\n";
+    $prompt .= "3) Include AI-assisted options ONLY if suitable for {$aiConfidence}.\n";
+    $prompt .= "4) Each description must explain WHAT they do + WHY it fits them + HOW to start (2–3 sentences).\n";
+    $prompt .= "5) Skills must be concrete and learnable.\n\n";
 
-        $prompt .= "IMPORTANT RULES:\n";
-        $prompt .= "1. Each opportunity should be UNIQUE and SPECIFIC\n";
-        $prompt .= "2. Income estimates must be REALISTIC and based on market rates\n";
-        $prompt .= "3. Links must be to REAL platforms (Upwork, Fiverr, Etsy, YouTube, etc.)\n";
-        $prompt .= "4. Skills should be CONCRETE and learnable\n";
-        $prompt .= "5. Descriptions should be ACTIONABLE and inspiring\n";
-        $prompt .= "6. Consider the user's time constraints and current situation\n\n";
+    $prompt .= "POSSIBLEGAIN RULES:\n";
+    $prompt .= "- \"PossibleGain\" must be realistic for a beginner/intermediate based on {$timeInvestment} per day.\n";
+    $prompt .= "- Return ONLY numbers and a dash, no currency symbols, examples: \"50-100\", \"200-400\", \"800-1500\".\n\n";
 
-        $prompt .= "DIVERSITY:\n";
-        $prompt .= "Include a mix of:\n";
-        $prompt .= "- Freelance opportunities (if applicable)\n";
-        $prompt .= "- Passive income ideas (if suitable)\n";
-        $prompt .= "- AI-assisted opportunities (matching their AI confidence)\n";
-        $prompt .= "- Quick wins and long-term builds\n\n";
+    $prompt .= "OUTPUT FORMAT (STRICT):\n";
+    $prompt .= "Return ONLY a valid JSON array. No markdown. No explanations. No extra text.\n";
+    $prompt .= "The JSON array must contain exactly 5 objects.\n\n";
 
-        $prompt .= "Return ONLY the JSON array, starting with [ and ending with ]. No other text.";
+    $prompt .= "EACH OBJECT MUST HAVE EXACTLY THESE FIELDS:\n";
+    $prompt .= "{\n";
+    $prompt .= "  \"title\": \"Clear, concise opportunity name (max 60 characters)\",\n";
+    $prompt .= "  \"description\": \"2-3 sentences: what it is, why it fits, and how to start\",\n";
+    $prompt .= "  \"PossibleGain\": \"numbers-only-range\",\n";
+    $prompt .= "  \"skills\": [\"skill1\", \"skill2\", \"skill3\"],\n";
+    $prompt .= "  \"link\": \"A real, working URL specific to this opportunity (direct page or targeted search URL)\",\n";
+    $prompt .= "  \"status\": \"not_started\"\n";
+    $prompt .= "}\n\n";
 
+    $prompt .= "DIVERSITY (INCLUDE A MIX):\n";
+    $prompt .= "- Freelance (service-based)\n";
+    $prompt .= "- Productized service (packaged offer)\n";
+    $prompt .= "- Passive/semi-passive (only if realistic)\n";
+    $prompt .= "- AI-assisted (only if appropriate)\n";
+    $prompt .= "- One quick-start opportunity + one longer-term build\n\n";
 
-        return $prompt;
-    }
+    $prompt .= "FINAL CHECK BEFORE RESPONDING:\n";
+    $prompt .= "- Output starts with [ and ends with ]\n";
+    $prompt .= "- Exactly 5 items\n";
+    $prompt .= "- Every link is a real URL on a real platform domain\n";
+    $prompt .= "- No extra keys, no missing keys\n\n";
+
+    $prompt .= "Return ONLY the JSON array.";
+
+    return $prompt;
+}
+
 
     private static function parsePostgresArray(string $pgArray): array
     {
