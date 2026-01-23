@@ -23,6 +23,10 @@ class ProfileController extends Controller
         $this->view('profile.profile');
     }
 
+    public function changeUserData(){
+        $json = file_get_contents('php://input');
+    }
+
     public function submit(): void
     {
         $json = file_get_contents('php://input');
