@@ -15,9 +15,12 @@ class QuestionnaireRepository
 
     public function saveAnswers($data)
     {
-        $interestAreas = !empty($data['interest_areas'])
-            ? '{' . implode(',', $data['interest_areas'])  .'}'
-            : '{}';
+        $quotedItems = array_map(function($item) {
+            return '"' . str_replace('"', '\\"', $item) . '"';
+        }, $data['interest_areas']);
+
+        $interestAreas = '{' . implode(',', $quotedItems) . '}';
+        
         $sql = "INSERT INTO survey_responses (user_id, age_range, main_goal, interest_areas, used_device, employment_status, current_career, previous_career, work_schedule, ai_confidence, daily_time_investment) 
                 VALUES (:user_id, :age_range, :main_goal, :interest_areas, :used_device, :employment_status, :current_career, :previous_career, :work_schedule, :ai_confidence, :daily_time_investment)";
 

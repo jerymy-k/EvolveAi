@@ -5,6 +5,11 @@ use App\Repositories\ProfileRepository;
 
 class ProfileService
 {
+    public function getUserDataById($user_id){
+        $repo = new ProfileRepository();
+        $repo->getUserData($user_id);
+    }
+
     public function handleSurvey($data) {
     $requiredFields = [
         'age_range', 'main_goal', 'interest_areas', 

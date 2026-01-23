@@ -13,6 +13,10 @@ class ProfileRepository
         $this->db = Database::getInstance()->getConnection();
     }
 
+    public function getUserData($user_id){
+        $sql = ""
+    }
+
     public function saveAnswers($data)
     {
         $interestAreas = !empty($data['interest_areas'])

@@ -20,6 +20,9 @@ class ProfileController extends Controller
 
     public function profile()
     {
+        $user_id = $_SESSION['user_id'] ?? '';
+        $service = new ProfileService();
+        $service->getUserDataById($user_id);
         $this->view('profile.profile');
     }
 
