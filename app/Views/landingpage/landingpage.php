@@ -101,7 +101,7 @@
             </nav>
             <div class="flex items-center gap-8">
                 <a class="text-sm font-semibold text-slate-400 hover:text-white transition-colors" href="/auth/login">Login</a>
-                <a class="bg-white text-background-dark px-6 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-all shadow-xl" href="/auth/register">
+                <a class="bg-white text-background-dark px-6 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-all shadow-xl" href="/auth/register.php">
                     Get Early Access</a>
             </div>
         </div>
@@ -122,10 +122,10 @@
                         The elite ecosystem for creators to build, scale, and automate high-margin income streams using cutting-edge AI neural networks.
                     </p>
                     <div class="flex flex-wrap gap-5">
-                        <a href="/auth/register" class="group relative px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg overflow-hidden transition-all hover:scale-105">
+                        <button class="group relative px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg overflow-hidden transition-all hover:scale-105">
                             <div class="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary opacity-50 group-hover:opacity-100 transition-opacity"></div>
                             <span class="relative">Start Your Journey</span>
-                        </a>
+                        </button>
                     </div>
                     <div class="flex items-center gap-8 pt-8">
                         <div class="flex -space-x-4">
@@ -282,7 +282,7 @@
                 </div>
             </div>
         </section>
-        <section class="py-32 overflow-hidden bg-white/5" id="community">
+        <section  class="py-32 overflow-hidden bg-white/5" id="community">
             <div class="max-w-[1400px] mx-auto px-8 mb-16 flex justify-between items-center">
                 <h2 class="text-3xl font-display font-bold text-white">The EvolveAi Network</h2>
                 <div class="flex gap-2">
@@ -341,9 +341,9 @@
                     Will you be a spectator, or will you build the engine? Join the elite hub of AI innovators today.
                 </p>
                 <div class="flex flex-col items-center gap-8">
-                    <a href="/auth/register" class="px-16 py-8 bg-white text-background-dark rounded-full font-black text-2xl hover:bg-primary hover:text-white transition-all hover:scale-110 shadow-[0_0_50px_rgba(255,255,255,0.3)]">
+                    <button class="px-16 py-8 bg-white text-background-dark rounded-full font-black text-2xl hover:bg-primary hover:text-white transition-all hover:scale-110 shadow-[0_0_50px_rgba(255,255,255,0.3)]">
                         Unlock Your AI Future
-                    </a>
+                    </button>
                     <div class="flex items-center gap-4 text-slate-500 font-mono text-xs uppercase tracking-widest">
                         <span>No subscription needed</span>
                         <span class="size-1 rounded-full bg-slate-700"></span>
