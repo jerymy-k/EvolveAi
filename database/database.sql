@@ -16,15 +16,17 @@ CREATE TABLE survey_responses (
     -- Phase 1 (signup)
     age_range VARCHAR(10) NOT NULL,
     main_goal VARCHAR(50) NOT NULL,
+    interest_areas TEXT[] NOT NULL,
     used_device VARCHAR(50) NOT NULL,
     employment_status VARCHAR(50) NOT NULL,
+    current_career VARCHAR(50) NOT NULL,
+    previous_career VARCHAR(50) NOT NULL,
     work_schedule VARCHAR(50) NOT NULL,
     ai_confidence VARCHAR(50) NOT NULL,
     daily_time_investment VARCHAR(20) NOT NULL,
     -- Phase 2 (post-signup, optional)
     financial_feeling VARCHAR(50),
-    work_issues TEXT[],              -- multi-select
-    interest_areas TEXT[],           -- multi-select
+    work_issues TEXT[],
     dream_goal VARCHAR(50),
 
     created_at TIMESTAMP DEFAULT NOW(),
