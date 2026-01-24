@@ -72,7 +72,7 @@
             <h1 class="text-3xl font-extrabold tracking-tight">Profile &amp; Settings</h1>
             <p class="text-gray-500 dark:text-gray-400 mt-1">Manage your account preferences and AI strategy parameters.</p>
         </div>
-        <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-6" id="strat_data">
             <div class="bento-card flex flex-col md:flex-row items-center gap-8">
                 <div class="relative group">
                     <div class="bg-cyan-200 size-28 rounded-full overflow-hidden shadow-[0px_0px_5px_gray] flex justify-center items-center text-5xl">
@@ -111,14 +111,14 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border-l-4 border-primary">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Main Goal</p>
-                                <p class="text-sm font-bold"><?= $userData['main_goal'] ?></p>
+                                <p class="text-sm font-bold field"><?= $userData['main_goal'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Age Range</p>
-                                <p class="text-sm font-bold"><?= $userData['age_range'] ?></p>
+                                <p class="text-sm font-bold field"><?= $userData['age_range'] ?></p>
                             </div>
                         </div>
 
@@ -127,7 +127,7 @@
                             <p class="text-[10px] text-gray-500 uppercase mb-1">Interests</p>
                             <div class="flex flex-wrap gap-3">
                                 <?php foreach ($userData['interest_areas'] as $interest): ?>
-                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold"><?= $interest ?></span>
+                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold field interest"><?= $interest ?></span>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">AI Confidence</p>
-                                <p class="text-sm font-bold"><?= $userData['ai_confidence'] ?></p>
+                                <p class="text-sm font-bold field"><?= $userData['ai_confidence'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -146,28 +146,28 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Career</p>
-                                <p class="text-sm font-bold"><?= $userData['current_career'] ?></p>
+                                <p class="text-sm font-bold field"><?= $userData['current_career'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Background</p>
-                                <p class="text-sm font-bold italic text-gray-600"><?= $userData['previous_career'] ?></p>
+                                <p class="text-sm font-bold italic text-gray-600 field"><?= $userData['previous_career'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Schedule & Availability</p>
-                                <p class="text-sm font-bold"><?= $userData['work_schedule'] ?></p>
+                                <p class="text-sm font-bold field"><?= $userData['work_schedule'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Primary Device</p>
-                                <p class="text-sm font-bold"><?= $userData['used_device'] ?></p>
+                                <p class="text-sm font-bold field"><?= $userData['used_device'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -178,23 +178,23 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-100 dark:border-emerald-800">
                                 <p class="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase font-bold">Financial Feeling</p>
-                                <p class="text-sm font-medium"><?= !empty($userData['financial_feeling']) ? $userData['financial_feeling'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Stable but looking to diversify income)</h4>' ?></p>
+                                <p class="text-sm font-medium field"><?= !empty($userData['financial_feeling']) ? $userData['financial_feeling'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Stable but looking to diversify income)</h4>' ?></p>
                             </div>
 
                             <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-100 dark:border-purple-800">
                                 <p class="text-[10px] text-purple-600 dark:text-purple-400 uppercase font-bold">Dream Goal</p>
-                                <p class="text-sm font-medium"><?= !empty($userData['dream_goal']) ? $userData['dream_goal'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Establish a cross-border digital empire targeting US markets from Morocco)</h4>' ?></p>
+                                <p class="text-sm font-medium field"><?= !empty($userData['dream_goal']) ? $userData['dream_goal'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Establish a cross-border digital empire targeting US markets from Morocco)</h4>' ?></p>
                             </div>
 
                             <div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 dark:border-red-800">
                                 <p class="text-[10px] text-red-600 dark:text-red-400 uppercase font-bold">Work Issues</p>
-                                <p class="text-sm font-medium"><?= !empty($userData['work_issues']) ? $userData['work_issues'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Manual repetitive tasks & low pay.)</h4>' ?></p>
+                                <p class="text-sm font-medium field"><?= !empty($userData['work_issues']) ? $userData['work_issues'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Manual repetitive tasks & low pay.)</h4>' ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button class="w-full mt-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-primary hover:text-white transition-all rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+                <button class="w-full mt-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-primary hover:text-white transition-all rounded-xl font-bold text-sm flex items-center justify-center gap-2" id="edit_data">
                     <span class="material-symbols-outlined text-sm">edit</span>
                     Update Survey Responses
                 </button>
@@ -215,58 +215,109 @@
 </html>
 
 <script>
-    const button = document.querySelector('#edit_profile');
+    const profileBtn = document.querySelector('#edit_profile');
+    const dataBtn = document.querySelector('#edit_data');
     const profile = document.querySelector('#profile');
+    const strat_data = document.querySelector('#strat_data');
 
-    button.addEventListener('click', async () => {
+    profileBtn.addEventListener('click', async () => {
 
-            const username_field = profile.querySelector('#username');
-            const email_field = profile.querySelector('#email');
-            console.log(username_field);
-            console.log(email_field);
-
-
-            if (!profile.dataset.editing) {
-                profile.dataset.editing = "true"
+        const username_field = profile.querySelector('#username');
+        const email_field = profile.querySelector('#email');
+        console.log(username_field);
+        console.log(email_field);
 
 
+        if (!profile.dataset.editing) {
+            profile.dataset.editing = "true"
 
-                const username_value = username_field.textContent.trim();
-                const email_value = email_field.textContent.trim();
 
-                username_field.innerHTML = `<input type="text" value="${username_value}" class="edit-category rounded-lg p-1 editable">`;
-                email_field.innerHTML = `<input type="text" value="${email_value}" class="edit-amount rounded-lg p-1 editable">`;
 
-                button.textContent = "confirm";
-            } else {
-                const mode = profile.dataset.mode;
-                const new_username = username_field.querySelector('input').value;
-                const new_email = email_field.querySelector('input').value;
+            const username_value = username_field.textContent.trim();
+            const email_value = email_field.textContent.trim();
 
-                username_field.textContent = new_username;
-                email_field.textContent = new_email;
+            username_field.innerHTML = `<input type="text" value="${username_value}" class="edit-category rounded-lg p-1 editable">`;
+            email_field.innerHTML = `<input type="text" value="${email_value}" class="edit-amount rounded-lg p-1 editable">`;
 
-                delete profile.dataset.editing;
+            profileBtn.innerHTML = `Confirm`;
+        } else {
+            profileBtn.innerHTML = `<span class="material-symbols-outlined text-lg">edit</span>Edit Profile Info`;
+            const new_username = username_field.querySelector('input').value;
+            const new_email = email_field.querySelector('input').value;
 
-                try {
-                    const response = await fetch('/profile/edit_profile', {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json',
-                        },
-                        body: `{"id":${<?= $_SESSION['user_id'] ?>}, "user_name":"${new_username}", "email":"${new_email}"}`
-                    });
+            username_field.textContent = new_username;
+            email_field.textContent = new_email;
 
-                    const result = await response.json();
+            delete profile.dataset.editing;
 
-                    if (result.success) {
-                        console.log("nice");
-                    } else {
-                        alert('Failed to edit profile.');
-                    }
-                } catch (err) {
-                    console.error('Error editing profile:', err);
+            try {
+                const response = await fetch('/profile/edit_profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: `{"id":${<?= $_SESSION['user_id'] ?>}, "user_name":"${new_username}", "email":"${new_email}"}`
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    console.log("nice");
+                } else {
+                    alert('Failed to edit profile.');
                 }
+            } catch (err) {
+                console.error('Error editing profile:', err);
             }
-        });
+        }
+    });
+
+    dataBtn.addEventListener('click', async () => {
+
+        const responses_fields = strat_data.querySelectorAll('.field');
+
+        if (!strat_data.dataset.editing) {
+            strat_data.dataset.editing = "true"
+
+            responses_fields.forEach(field => {
+                const field_value = field.textContent.trim();
+                if (field.classList.contains('interest')) {
+                    field.innerHTML = `<input class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold" type="text" value="${field_value}">`
+                } else {
+                    field.innerHTML = `<input type="text" value="${field_value}" class="edit-category rounded-lg p-1 editable">`;
+                }
+            })
+
+            dataBtn.innerHTML = `Confirm`;
+        } else {
+            dataBtn.innerHTML = `<span class="material-symbols-outlined text-sm">edit</span>Update Survey Responses`;
+            // const new_username = username_field.querySelector('input').value;
+            // const new_email = email_field.querySelector('input').value;
+
+            // username_field.textContent = new_username;
+            // email_field.textContent = new_email;
+
+            delete strat_data.dataset.editing;
+
+            // try {
+            //     const response = await fetch('/profile/edit_data', {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-type': 'application/json',
+            //         },
+            //         body: `{"id":${<?= $_SESSION['user_id'] ?>}, "user_name":"${new_username}", "email":"${new_email}"}`
+            //     });
+
+            //     const result = await response.json();
+
+            //     if (result.success) {
+            //         console.log("nice");
+            //     } else {
+            //         alert('Failed to edit profile.');
+            //     }
+            // } catch (err) {
+            //     console.error('Error editing profile:', err);
+            // }
+        }
+    });
 </script>
