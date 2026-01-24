@@ -26,6 +26,26 @@ class ProfileController extends Controller
         $this->view('profile.profile', ['userData' => $userData]);
     }
 
+    public function edit_profile(){
+        $user_id = $_SESSION['user_id'] ?? '';
+        
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        
+        if (!$data) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'No data received']);
+            exit;
+            }
+            
+        $service = new ProfileService();
+        $result = $service->edit_profile($user_id);
+
+        header('Content-Type: application/json');
+        echo json_encode($result);
+        exit; 
+    }
+    
     public function changeUserData(){
         $json = file_get_contents('php://input');
     }

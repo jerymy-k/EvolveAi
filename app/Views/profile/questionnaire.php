@@ -305,7 +305,7 @@
                         </div>
                     </div>
 
-                    <div data-value="pc"
+                    <div data-value="PC"
                         class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
                         <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
                             <span class="material-symbols-outlined text-3xl">desktop_windows</span>
@@ -593,7 +593,7 @@
                         </div>
                     </div>
 
-                    <div data-value="flexible_irregular"
+                    <div data-value="flexible-irregular"
                         class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
                         <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
                             <span class="material-symbols-outlined text-3xl">update</span>

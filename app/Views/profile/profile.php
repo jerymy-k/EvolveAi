@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
-    <?php var_dump($userData) ?>
+
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -41,8 +41,20 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .bento-card {
-            @apply bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300;
-        }
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            border: 1px solid #e5e7eb;
+            
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            
+            transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .bento-card:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
     </style>
 </head>
 
@@ -67,18 +79,18 @@
                         <?= ucfirst($_SESSION['user_name'][0]) ?>
                     </div>
                 </div>
-                <div class="flex-1 space-y-4 w-full text-center md:text-left">
+                <div class="flex-1 space-y-4 w-full text-center md:text-left" id="profile">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Full Name</label>
-                            <p class="text-lg font-semibold"><?= $_SESSION['user_name'] ?></p>
+                            <p class="text-lg font-semibold" id="username"><?= $_SESSION['user_name'] ?></p>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Email Address</label>
-                            <p class="text-lg font-semibold"><?= $_SESSION['user_email'] ?></p>
+                            <p class="text-lg font-semibold" id="email"><?= $_SESSION['user_email'] ?></p>
                         </div>
                     </div>
-                    <button class="inline-flex items-center gap-2 text-primary font-bold text-sm hover:underline">
+                    <button class="inline-flex items-center gap-2 text-primary font-bold text-sm hover:underline" id="edit_profile">
                         <span class="material-symbols-outlined text-lg">edit</span>
                         Edit Profile Info
                     </button>
@@ -114,9 +126,9 @@
                         <div class="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <p class="text-[10px] text-gray-500 uppercase mb-1">Interests</p>
                             <div class="flex flex-wrap gap-3">
-                            <?php foreach($userData['interest_areas'] as $interest):?>
-                                <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold"><?= $interest ?></span>
-                            <?php endforeach;?>
+                                <?php foreach ($userData['interest_areas'] as $interest): ?>
+                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold"><?= $interest ?></span>
+                                <?php endforeach; ?>
                             </div>
                         </div>
 
@@ -155,7 +167,7 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Primary Device</p>
-                                <p class="text-sm font-bold">Desktop / Mac</p>
+                                <p class="text-sm font-bold"><?= $userData['used_device'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -166,17 +178,17 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-100 dark:border-emerald-800">
                                 <p class="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase font-bold">Financial Feeling</p>
-                                <p class="text-sm font-medium">Seeking Stability</p>
+                                <p class="text-sm font-medium"><?= !empty($userData['financial_feeling']) ? $userData['financial_feeling'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Stable but looking to diversify income)</h4>' ?></p>
                             </div>
 
                             <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-100 dark:border-purple-800">
                                 <p class="text-[10px] text-purple-600 dark:text-purple-400 uppercase font-bold">Dream Goal</p>
-                                <p class="text-sm font-medium">Remote Agency Owner</p>
+                                <p class="text-sm font-medium"><?= !empty($userData['dream_goal']) ? $userData['dream_goal'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Establish a cross-border digital empire targeting US markets from Morocco)</h4>' ?></p>
                             </div>
 
                             <div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 dark:border-red-800">
                                 <p class="text-[10px] text-red-600 dark:text-red-400 uppercase font-bold">Work Issues</p>
-                                <p class="text-sm font-medium">Burnout, Manual Tasks</p>
+                                <p class="text-sm font-medium"><?= !empty($userData['work_issues']) ? $userData['work_issues'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Manual repetitive tasks & low pay.)</h4>' ?></p>
                             </div>
                         </div>
                     </div>
@@ -185,20 +197,6 @@
                 <button class="w-full mt-6 py-3 bg-gray-100 dark:bg-gray-800 hover:bg-primary hover:text-white transition-all rounded-xl font-bold text-sm flex items-center justify-center gap-2">
                     <span class="material-symbols-outlined text-sm">edit</span>
                     Update Survey Responses
-                </button>
-            </div>
-        </div>
-        <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800 shadow-xl">
-            <div class="text-center sm:text-left">
-                <p class="font-bold text-gray-900 dark:text-white">Unsaved changes detected</p>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Last saved 2 hours ago</p>
-            </div>
-            <div class="flex gap-3 w-full sm:w-auto">
-                <button class="flex-1 sm:flex-none px-8 py-3 rounded-2xl font-bold text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                    Discard
-                </button>
-                <button class="flex-1 sm:flex-none px-12 py-3 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 transform hover:-translate-y-0.5 transition-all">
-                    Save Changes
                 </button>
             </div>
         </div>
@@ -215,3 +213,60 @@
 </body>
 
 </html>
+
+<script>
+    const button = document.querySelector('#edit_profile');
+    const profile = document.querySelector('#profile');
+
+    button.addEventListener('click', async () => {
+
+            const username_field = profile.querySelector('#username');
+            const email_field = profile.querySelector('#email');
+            console.log(username_field);
+            console.log(email_field);
+
+
+            if (!profile.dataset.editing) {
+                profile.dataset.editing = "true"
+
+
+
+                const username_value = username_field.textContent.trim();
+                const email_value = email_field.textContent.trim();
+
+                username_field.innerHTML = `<input type="text" value="${username_value}" class="edit-category rounded-lg p-1 editable">`;
+                email_field.innerHTML = `<input type="text" value="${email_value}" class="edit-amount rounded-lg p-1 editable">`;
+
+                button.textContent = "confirm";
+            } else {
+                const mode = profile.dataset.mode;
+                const new_username = username_field.querySelector('input').value;
+                const new_email = email_field.querySelector('input').value;
+
+                username_field.textContent = new_username;
+                email_field.textContent = new_email;
+
+                delete profile.dataset.editing;
+
+                try {
+                    const response = await fetch('profile/edit_profile', {
+                        method: 'POST',
+                        headers: {
+                            'Content-type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `id=${<?= $_SESSION['user_id'] ?>}&user_name=${new_username}&email=${new_email}`
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        console.log("nice");
+                    } else {
+                        alert('Failed to edit profile.');
+                    }
+                } catch (err) {
+                    console.error('Error editing profile:', err);
+                }
+            }
+        });
+</script>

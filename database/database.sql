@@ -25,7 +25,7 @@ CREATE TABLE survey_responses (
     daily_time_investment VARCHAR(20) NOT NULL,
     -- Phase 2 (post-signup, optional)
     financial_feeling VARCHAR(50),
-    work_issues TEXT[],
+    work_issues TEXT,
     dream_goal VARCHAR(50),
 
     created_at TIMESTAMP DEFAULT NOW(),
@@ -145,3 +145,4 @@ ALTER TABLE users RENAME COLUMN possword TO password;
 ALTER TABLE users RENAME COLUMN username TO name;
 ALTER TABLE ai_plans ADD status VARCHAR(20) DEFAULT 'not_started' NOT NULL;
 
+ALTER TABLE survey_responses ALTER COLUMN work_issues TYPE TEXT
