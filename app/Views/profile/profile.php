@@ -249,12 +249,12 @@
                 delete profile.dataset.editing;
 
                 try {
-                    const response = await fetch('profile/edit_profile', {
+                    const response = await fetch('/profile/edit_profile', {
                         method: 'POST',
                         headers: {
-                            'Content-type': 'application/x-www-form-urlencoded',
+                            'Content-type': 'application/json',
                         },
-                        body: `id=${<?= $_SESSION['user_id'] ?>}&user_name=${new_username}&email=${new_email}`
+                        body: `{"id":${<?= $_SESSION['user_id'] ?>}, "user_name":"${new_username}", "email":"${new_email}"}`
                     });
 
                     const result = await response.json();

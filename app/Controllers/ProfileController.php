@@ -20,33 +20,43 @@ class ProfileController extends Controller
 
     public function profile()
     {
-        $user_id = $_SESSION['user_id'] ?? '';
+        $user_id = $_SESSION['user_id'] ?? null;
         $service = new ProfileService();
         $userData = $service->getUserDataById($user_id);
         $this->view('profile.profile', ['userData' => $userData]);
     }
 
-    public function edit_profile(){
-        $user_id = $_SESSION['user_id'] ?? '';
-        
+    public function edit_profile()
+    {
+        $user_id = $_SESSION['user_id'] ?? null;
+
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
-        
         if (!$data) {
             header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'No data received']);
             exit;
-            }
-            
+        }
+
         $service = new ProfileService();
-        $result = $service->edit_profile($user_id);
+        $result = $service->edit_profile($user_id, $data);
+
+        if ($result['success']) {
+            if (isset($data['user_name'])) {
+                $_SESSION['user_name'] = $data['user_name'];
+            }
+            if (isset($data['email'])) {
+                $_SESSION['user_email'] = $data['email'];
+            }
+        }
 
         header('Content-Type: application/json');
         echo json_encode($result);
-        exit; 
+        exit;
     }
-    
-    public function changeUserData(){
+
+    public function changeUserData()
+    {
         $json = file_get_contents('php://input');
     }
 
@@ -66,6 +76,6 @@ class ProfileController extends Controller
 
         header('Content-Type: application/json');
         echo json_encode($result);
-        exit; 
+        exit;
     }
 }

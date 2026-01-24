@@ -916,10 +916,8 @@
     const addBtns = document.querySelectorAll('.add-pill-btn');
 
     function addCustomPill() {
-        // Find the currently active question step
         const activeStep = questions[step];
 
-        // Find the input and container specifically inside this active step
         const input = activeStep.querySelector('input[type="text"]');
         const container = activeStep.querySelector('.flex-wrap');
 
@@ -930,10 +928,7 @@
 
         const valSlug = val.toLowerCase().replace(/\s+/g, '-');
 
-        // Create the new pill
         const newPill = document.createElement('div');
-        // We keep it as 'unselected-card' because the .click() call below 
-        // will trigger your global listener to select it and add it to the 'answers' object.
         newPill.className = 'card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50';
         newPill.setAttribute('data-value', valSlug);
         newPill.innerHTML = `
@@ -941,15 +936,12 @@
         <span class="font-semibold">${val}</span>
     `;
 
-        // Append, clear, and auto-select
         container.appendChild(newPill);
         input.value = "";
 
-        // This triggers your global document.addEventListener('click') logic
         newPill.click();
     }
 
-    // 2. Attach the listener to all buttons found
     addBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -957,7 +949,6 @@
         });
     });
 
-    // Inside your <script>
     async function submitSurvey() {
         try {
             const response = await fetch('/questionnaire/submit', {

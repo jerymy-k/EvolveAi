@@ -28,7 +28,25 @@ class ProfileRepository
         return $userData;
     }
 
-    
+    public function edit_profile($data)
+    {
+        $id = $data['id'] ?? null;
+        $username = $data['user_name'] ?? null;
+        $email = $data['email'] ?? null;
+
+        if (!$id || !$username || !$email) {
+            return false; // Don't even try if data is missing
+        }
+
+        $sql = "UPDATE users SET name = :name, email = :email WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':name' => $username,
+            ':email' => $email,
+            ':id' => $id
+        ]);
+    }
 
     public function saveAnswers($data)
     {

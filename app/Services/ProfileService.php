@@ -36,7 +36,27 @@ class ProfileService
         }, explode(',', trim($postgresStr, '{}')));
     }
 
-    public function edit_profile($user_id) {}
+    public function edit_profile($user_id, $data)
+    {
+        $requiredFields = [
+            'user_name',
+            'email'
+        ];
+
+        foreach ($requiredFields as $field) {
+            if (!isset($data[$field]) || empty($data[$field])) {
+                return ['success' => false, 'message' => "Field $field is required"];
+            }
+        }
+
+        $repo = new ProfileRepository();
+        $isSaved = $repo->edit_profile($data);
+
+        return [
+            'success' => $isSaved,
+            'message' => $isSaved ? 'Success!' : 'Database error.'
+        ];
+    }
 
     public function handleSurvey($data)
     {
