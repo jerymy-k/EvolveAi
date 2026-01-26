@@ -72,4 +72,40 @@ class ProfileRepository
             ':daily_time_investment' => $data['daily_time_investment'],
         ]);
     }
+
+    public function updateAnswers($data)
+    {
+        $sql = "UPDATE survey_responses SET age_range             = :age_range,
+                                            main_goal             = :main_goal,
+                                            interest_areas        = :interest_areas,
+                                            used_device           = :used_device,
+                                            employment_status     = :employment_status,
+                                            current_career        = :current_career,
+                                            previous_career       = :previous_career,
+                                            work_schedule         = :work_schedule,
+                                            ai_confidence         = :ai_confidence,
+                                            daily_time_investment = :daily_time_investment,
+                                            dream_goal            = :dream_goal,
+                                            financial_feeling     = :financial_feeling,
+                                            work_issues           = :work_issues
+                                            WHERE user_id = :user_id";
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            ':user_id'               => $_SESSION['user_id'],
+            ':age_range'             => $data['age_range'],
+            ':main_goal'             => $data['main_goal'],
+            ':interest_areas'        => $data['interest_areas'],
+            ':used_device'           => $data['used_device'],
+            ':employment_status'     => $data['employment_status'],
+            ':current_career'        => $data['current_career'],
+            ':previous_career'       => $data['previous_career'],
+            ':work_schedule'         => $data['work_schedule'],
+            ':ai_confidence'         => $data['ai_familiarity'],
+            ':daily_time_investment' => $data['daily_time_investment'],
+            ':dream_goal'            => $data['dream_goal'] ?? '',
+            ':work_issues'           => $data['work_issues'] ?? '',
+            ':financial_feeling'     => $data['financial_feeling'] ?? ''
+        ]);
+    }
 }

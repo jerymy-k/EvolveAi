@@ -55,12 +55,7 @@ class ProfileController extends Controller
         exit;
     }
 
-    public function changeUserData()
-    {
-        $json = file_get_contents('php://input');
-    }
-
-    public function submit(): void
+    public function edit_data(): void
     {
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
@@ -72,7 +67,7 @@ class ProfileController extends Controller
         }
 
         $service = new ProfileService();
-        $result = $service->handleSurvey($data);
+        $result = $service->handleDataChange($data);
 
         header('Content-Type: application/json');
         echo json_encode($result);

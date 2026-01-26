@@ -6,8 +6,6 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT NOW()
 );
 
-SELECT * FROM users
-
 
 CREATE TABLE survey_responses (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,

@@ -95,4 +95,57 @@ class ProfileService
             'message' => $isSaved ? 'Success!' : 'Database error.'
         ];
     }
+
+    public function handleDataChange($data)
+    {
+        $requiredFields = [
+            'age_range',
+            'main_goal',
+            'interest_areas',
+            'used_device',
+            'employment_status',
+            'current_career',
+            'previous_career',
+            'work_schedule',
+            'ai_familiarity',
+            'daily_time_investment',
+            'financial_feeling',
+            'dream_goal',
+            'work_issues'
+            
+        ];
+
+        $sanitizedData = [];
+        $optionalKeys = ['financial_feeling', 'dream_goal', 'work_issues'];
+
+        foreach ($requiredFields as $field) {
+            if (in_array($field, $optionalKeys)) {
+                continue; 
+            }
+
+            $value = $data[$field] ?? '';
+
+            if (is_string($value) && trim($value) === '') {
+                return ['success' => false, 'message' => "Field " . str_replace('_', ' ', $field) . " is required."];
+            }
+
+            if (is_array($data[$field])) {
+                $sanitizedData[$field] = array_map(fn($item) => strip_tags(trim($item)), $data[$field]);
+            } else {
+                $sanitizedData[$field] = strip_tags(trim($data[$field]));
+            }
+        }
+
+        $sanitizedData['interest_areas'] = !empty($data['interest_areas'])
+        ? '{' . implode(',', $data['interest_areas']) . '}'
+        : '{}';
+
+        $repo = new ProfileRepository();
+        $isSaved = $repo->updateAnswers($sanitizedData);
+
+        return [
+            'success' => $isSaved,
+            'message' => $isSaved ? 'Success!' : 'Database error.'
+        ];
+    }
 }

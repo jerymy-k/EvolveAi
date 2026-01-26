@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -111,14 +112,14 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border-l-4 border-primary">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Main Goal</p>
-                                <p class="text-sm font-bold field"><?= $userData['main_goal'] ?></p>
+                                <p class="text-sm font-bold field" data-key="main_goal"><?= $userData['main_goal'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Age Range</p>
-                                <p class="text-sm font-bold field"><?= $userData['age_range'] ?></p>
+                                <p class="text-sm font-bold field" data-key="age_range"><?= $userData['age_range'] ?></p>
                             </div>
                         </div>
 
@@ -127,7 +128,7 @@
                             <p class="text-[10px] text-gray-500 uppercase mb-1">Interests</p>
                             <div class="flex flex-wrap gap-3">
                                 <?php foreach ($userData['interest_areas'] as $interest): ?>
-                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold field interest"><?= $interest ?></span>
+                                    <span class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] rounded-md font-bold field interest" data-key="interest_areas"><?= $interest ?></span>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -135,7 +136,14 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">AI Confidence</p>
-                                <p class="text-sm font-bold field"><?= $userData['ai_confidence'] ?></p>
+                                <p class="text-sm font-bold field" data-key="ai_familiarity"><?= $userData['ai_confidence'] ?></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                            <div>
+                                <p class="text-[10px] text-gray-500 uppercase">Employment Status</p>
+                                <p class="text-sm font-bold field" data-key="employment_status"><?= $userData['employment_status'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -146,28 +154,35 @@
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Career</p>
-                                <p class="text-sm font-bold field"><?= $userData['current_career'] ?></p>
+                                <p class="text-sm font-bold field" data-key="current_career"><?= $userData['current_career'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Background</p>
-                                <p class="text-sm font-bold italic text-gray-600 field"><?= $userData['previous_career'] ?></p>
+                                <p class="text-sm font-bold italic text-gray-600 field" data-key="previous_career"><?= $userData['previous_career'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Schedule & Availability</p>
-                                <p class="text-sm font-bold field"><?= $userData['work_schedule'] ?></p>
+                                <p class="text-sm font-bold field" data-key="work_schedule"><?= $userData['work_schedule'] ?></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                            <div>
+                                <p class="text-[10px] text-gray-500 uppercase">Daily Time Investment</p>
+                                <p class="text-sm font-bold field" data-key="daily_time_investment"><?= $userData['daily_time_investment'] ?></p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
                             <div>
                                 <p class="text-[10px] text-gray-500 uppercase">Primary Device</p>
-                                <p class="text-sm font-bold field"><?= $userData['used_device'] ?></p>
+                                <p class="text-sm font-bold field" data-key="used_device"><?= $userData['used_device'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -178,17 +193,20 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div class="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-100 dark:border-emerald-800">
                                 <p class="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase font-bold">Financial Feeling</p>
-                                <p class="text-sm font-medium field"><?= !empty($userData['financial_feeling']) ? $userData['financial_feeling'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Stable but looking to diversify income)</h4>' ?></p>
+                                <p class="text-sm font-medium field" data-key="financial_feeling"><?= $financial_exists = !empty($userData['financial_feeling']) ? $userData['financial_feeling'] : '<?= <h2>Not Defined Yet</h2>' ?></p>
+                                <?php if ($financial_exists == '<?= <h2>Not Defined Yet</h2>') echo '<h4 class="text-sm text-gray-400 italic">(ex: Stable but looking to diversify income)</h4>'; ?>
                             </div>
 
                             <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-xl border border-purple-100 dark:border-purple-800">
                                 <p class="text-[10px] text-purple-600 dark:text-purple-400 uppercase font-bold">Dream Goal</p>
-                                <p class="text-sm font-medium field"><?= !empty($userData['dream_goal']) ? $userData['dream_goal'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Establish a cross-border digital empire targeting US markets from Morocco)</h4>' ?></p>
+                                <p class="text-sm font-medium field" data-key="dream_goal"><?= $dream_exists = !empty($userData['dream_goal']) ? $userData['dream_goal'] : '<?= <h2>Not Defined Yet</h2>' ?></p>
+                                <?php if ($dream_exists == '<?= <h2>Not Defined Yet</h2>') echo '<h4 class="text-sm text-gray-400 italic">(ex: Establish a cross-border digital empire targeting US markets from Morocco)</h4>'; ?>
                             </div>
 
                             <div class="p-3 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 dark:border-red-800">
                                 <p class="text-[10px] text-red-600 dark:text-red-400 uppercase font-bold">Work Issues</p>
-                                <p class="text-sm font-medium field"><?= !empty($userData['work_issues']) ? $userData['work_issues'] : '<?= <h2>Not Defined Yet </h2><h4 class="text-sm text-gray-400 italic">(ex: Manual repetitive tasks & low pay.)</h4>' ?></p>
+                                <p class="text-sm font-medium field" data-key="work_issues"><?= $issues_exists = !empty($userData['work_issues']) ? $userData['work_issues'] : '<?= <h2>Not Defined Yet</h2>' ?></p>
+                                <?php if ($issues_exists == '<?= <h2>Not Defined Yet</h2>') echo '<h4 class="text-sm text-gray-400 italic">(ex: Manual repetitive tasks & low pay.)</h4>'; ?>
                             </div>
                         </div>
                     </div>
@@ -251,23 +269,55 @@
             delete profile.dataset.editing;
 
             try {
+                Swal.fire({
+                    title: 'Saving changes...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
                 const response = await fetch('/profile/edit_profile', {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json',
                     },
-                    body: `{"id":${<?= $_SESSION['user_id'] ?>}, "user_name":"${new_username}", "email":"${new_email}"}`
+                    body: JSON.stringify({
+                        id: <?= $_SESSION['user_id'] ?>,
+                        user_name: new_username,
+                        email: new_email
+                    })
                 });
 
                 const result = await response.json();
 
                 if (result.success) {
-                    console.log("nice");
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Profile Saved',
+                        text: 'Your personal info has been updated.',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+
+                    window.location.reload();
+
                 } else {
-                    alert('Failed to edit profile.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Update Failed',
+                        text: result.message || 'Something went wrong.',
+                        confirmButtonColor: '#7c3aed'
+                    });
                 }
             } catch (err) {
                 console.error('Error editing profile:', err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'System Error',
+                    text: 'Could not reach the server.',
+                    confirmButtonColor: '#ef4444'
+                });
             }
         }
     });
@@ -291,33 +341,96 @@
             dataBtn.innerHTML = `Confirm`;
         } else {
             dataBtn.innerHTML = `<span class="material-symbols-outlined text-sm">edit</span>Update Survey Responses`;
-            // const new_username = username_field.querySelector('input').value;
-            // const new_email = email_field.querySelector('input').value;
+            let new_survey_responses = {
+                age_range: null,
+                main_goal: null,
+                interest_areas: [],
+                used_device: null,
+                employment_status: null,
+                current_career: null,
+                previous_career: null,
+                work_schedule: null,
+                ai_familiarity: null,
+                daily_time_investment: null,
+                financial_feeling: null,
+                dream_goal: null,
+                work_issues: null
+            };
 
-            // username_field.textContent = new_username;
-            // email_field.textContent = new_email;
+            const optionalKeys = ['financial_feeling', 'dream_goal', 'work_issues'];
+
+            responses_fields.forEach(field => {
+                const input = field.querySelector('input');
+                const new_field_value = input.value.trim();
+                const key = field.dataset.key;
+
+                if (field.classList.contains('interest')) {
+                    field.textContent = new_field_value;
+                    new_survey_responses['interest_areas'].push(new_field_value);
+                } else {
+                    const isEmpty = new_field_value === "" || new_field_value.toLowerCase() === "not defined yet";
+
+                    if (optionalKeys.includes(key) && isEmpty) {
+                        new_survey_responses[key] = ""; 
+                        field.textContent = "Not Defined Yet";
+                    }
+                    else {
+                        new_survey_responses[key] = new_field_value;
+                        field.textContent = new_field_value;
+                    }
+                }
+            });
+
 
             delete strat_data.dataset.editing;
 
-            // try {
-            //     const response = await fetch('/profile/edit_data', {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-type': 'application/json',
-            //         },
-            //         body: `{"id":${<?= $_SESSION['user_id'] ?>}, "user_name":"${new_username}", "email":"${new_email}"}`
-            //     });
+            try {
+                Swal.fire({
+                    title: 'Updating Profile...',
+                    text: 'Syncing your AI strategy data',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
 
-            //     const result = await response.json();
+                const response = await fetch('/profile/edit_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(new_survey_responses)
+                });
 
-            //     if (result.success) {
-            //         console.log("nice");
-            //     } else {
-            //         alert('Failed to edit profile.');
-            //     }
-            // } catch (err) {
-            //     console.error('Error editing profile:', err);
-            // }
+                const result = await response.json();
+
+                if (result.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Profile Updated!',
+                        text: 'Your new goals have been saved.',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        background: '#f8fafc',
+                        iconColor: '#7c3aed'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Update Failed',
+                        text: result.message || 'We could not save your data.',
+                        confirmButtonColor: '#7c3aed'
+                    });
+                }
+            } catch (err) {
+                console.error('Error editing data:', err);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Connection Error',
+                    text: 'Please check your internet and try again.',
+                    confirmButtonColor: '#ef4444'
+                });
+            }
         }
     });
 </script>
