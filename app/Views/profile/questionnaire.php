@@ -962,7 +962,7 @@
             const result = await response.json();
 
             if (result.success) {
-                window.location.href = '/dashboard';
+                window.location.href = '/opportunity';
             }
         } catch (error) {
             console.error("Error communicating with server:", error);

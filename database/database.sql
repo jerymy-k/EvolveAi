@@ -1,3 +1,4 @@
+-- Active: 1768299581937@@127.0.0.1@5432@evolve_ai
 CREATE TABLE users (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
     name VARCHAR(50) NOT NULL UNIQUE,
@@ -141,6 +142,12 @@ CREATE TABLE likes (
 
 ALTER TABLE users RENAME COLUMN possword TO password;
 ALTER TABLE users RENAME COLUMN username TO name;
-ALTER TABLE ai_plans ADD status VARCHAR(20) DEFAULT 'not_started' NOT NULL;
 
-ALTER TABLE survey_responses ALTER COLUMN work_issues TYPE TEXT
+
+
+ALTER TABLE users
+ADD COLUMN IF NOT EXISTS reset_token VARCHAR(255);
+
+CREATE INDEX IF NOT EXISTS idx_users_reset_token ON users(reset_token);
+
+DROP TABLE survey_responses;

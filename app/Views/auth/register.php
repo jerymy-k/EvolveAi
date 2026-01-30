@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Sign Up - AI Income Hub</title>
+    <title>Sign Up - EvolveAi</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet" />
@@ -56,7 +56,7 @@
             <div class="size-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-md">
                 <span class="material-symbols-outlined text-white">rocket_launch</span>
             </div>
-            <h2 class="text-xl font-bold tracking-tight">AI Income Hub</h2>
+            <h2 class="text-xl font-bold tracking-tight">EvolveAi</h2>
         </div>
         <!-- Quote and Dashboard Preview -->
         <div class="relative z-10 flex flex-col gap-10">
@@ -102,7 +102,7 @@
             <!-- Mobile Logo -->
             <div class="lg:hidden flex items-center gap-3 mb-8 text-primary">
                 <span class="material-symbols-outlined text-4xl">rocket_launch</span>
-                <h2 class="text-2xl font-bold tracking-tight">AI Income Hub</h2>
+                <h2 class="text-2xl font-bold tracking-tight">EvolveAi</h2>
             </div>
 
             <!-- Page Heading -->
