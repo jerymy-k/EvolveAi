@@ -305,7 +305,7 @@
                         </div>
                     </div>
 
-                    <div data-value="pc"
+                    <div data-value="PC"
                         class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
                         <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
                             <span class="material-symbols-outlined text-3xl">desktop_windows</span>
@@ -565,7 +565,7 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
-                    <div data-value="fixed_day"
+                    <div data-value="typical_9-to-5_or_morning-to-afternoon"
                         class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
                         <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
                             <span class="material-symbols-outlined text-3xl">schedule</span>
@@ -593,7 +593,7 @@
                         </div>
                     </div>
 
-                    <div data-value="flexible_irregular"
+                    <div data-value="flexible-irregular"
                         class="card relative flex flex-col gap-4 p-6 rounded-xl unselected-card hover:border-primary/50 cursor-pointer transition-all duration-200">
                         <div class="icon-box size-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center transition-colors">
                             <span class="material-symbols-outlined text-3xl">update</span>
@@ -916,10 +916,8 @@
     const addBtns = document.querySelectorAll('.add-pill-btn');
 
     function addCustomPill() {
-        // Find the currently active question step
         const activeStep = questions[step];
 
-        // Find the input and container specifically inside this active step
         const input = activeStep.querySelector('input[type="text"]');
         const container = activeStep.querySelector('.flex-wrap');
 
@@ -930,10 +928,7 @@
 
         const valSlug = val.toLowerCase().replace(/\s+/g, '-');
 
-        // Create the new pill
         const newPill = document.createElement('div');
-        // We keep it as 'unselected-card' because the .click() call below 
-        // will trigger your global listener to select it and add it to the 'answers' object.
         newPill.className = 'card flex items-center gap-2 px-6 py-3 rounded-full unselected-card text-gray-700 dark:text-gray-300 cursor-pointer transition-all hover:border-primary/50';
         newPill.setAttribute('data-value', valSlug);
         newPill.innerHTML = `
@@ -941,15 +936,12 @@
         <span class="font-semibold">${val}</span>
     `;
 
-        // Append, clear, and auto-select
         container.appendChild(newPill);
         input.value = "";
 
-        // This triggers your global document.addEventListener('click') logic
         newPill.click();
     }
 
-    // 2. Attach the listener to all buttons found
     addBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -957,7 +949,6 @@
         });
     });
 
-    // Inside your <script>
     async function submitSurvey() {
         try {
             const response = await fetch('/questionnaire/submit', {

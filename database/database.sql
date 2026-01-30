@@ -1,13 +1,11 @@
 -- Active: 1768299581937@@127.0.0.1@5432@evolve_ai
 CREATE TABLE users (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(255)   NOT NULL UNIQUE,
     password TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
-
-
 
 
 CREATE TABLE survey_responses (
@@ -26,7 +24,7 @@ CREATE TABLE survey_responses (
     daily_time_investment VARCHAR(20) NOT NULL,
     -- Phase 2 (post-signup, optional)
     financial_feeling VARCHAR(50),
-    work_issues TEXT[],
+    work_issues TEXT,
     dream_goal VARCHAR(50),
 
     created_at TIMESTAMP DEFAULT NOW(),
