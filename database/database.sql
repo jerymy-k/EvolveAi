@@ -1,8 +1,9 @@
+-- Active: 1768299581937@@127.0.0.1@5432@evolve_ai
 CREATE TABLE users (
-    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY ,
+    name VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(255)   NOT NULL UNIQUE,
-    possword TEXT        NOT NULL,
+    password TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -13,21 +14,24 @@ CREATE TABLE survey_responses (
     -- Phase 1 (signup)
     age_range VARCHAR(10) NOT NULL,
     main_goal VARCHAR(50) NOT NULL,
+    interest_areas TEXT[] NOT NULL,
+    used_device VARCHAR(50) NOT NULL,
     employment_status VARCHAR(50) NOT NULL,
+    current_career VARCHAR(50) NOT NULL,
+    previous_career VARCHAR(50) NOT NULL,
     work_schedule VARCHAR(50) NOT NULL,
     ai_confidence VARCHAR(50) NOT NULL,
     daily_time_investment VARCHAR(20) NOT NULL,
     -- Phase 2 (post-signup, optional)
     financial_feeling VARCHAR(50),
-    work_issues TEXT[],              -- multi-select
-    interest_areas TEXT[],           -- multi-select
+    work_issues TEXT,
     dream_goal VARCHAR(50),
 
     created_at TIMESTAMP DEFAULT NOW(),
     
     CONSTRAINT fk_survey_user
         FOREIGN KEY (user_id)
-        REFERENCES user(id)
+        REFERENCES users(id)
         ON DELETE CASCADE
 );
 
@@ -35,15 +39,19 @@ CREATE TABLE user_skills (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INT NOT NULL,
     skill_name VARCHAR(50),
-    mastery SMALLINT NOT NULL,
-    category VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP DEFAULT NOW()
+    mastery SMALLINT DEFAULT 50,
+    category VARCHAR(50),
+    created_at TIMESTAMP DEFAULT NOW(),
     
     CONSTRAINT fk_skills_user
         FOREIGN KEY (user_id)
         REFERENCES users(id)
         ON DELETE CASCADE
 );
+
+SELECT * from survey_responses
+
+SELECT * from user_skills
 
 CREATE TABLE opportunities (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -53,8 +61,8 @@ CREATE TABLE opportunities (
     required_skill VARCHAR(100),
     money_gain NUMERIC(12,2),
     link VARCHAR(255),
-    status ENUM('not_started', 'in_progress', 'completed') NOT NULL DEFAULT 'not_started',
     created_at TIMESTAMP DEFAULT NOW(),
+    status VARCHAR(20) DEFAULT 'not_started' NOT NULL,
 
     CONSTRAINT fk_opportunity_user
         FOREIGN KEY (user_id)
@@ -63,9 +71,9 @@ CREATE TABLE opportunities (
 );
 
 CREATE TABLE ai_plans (
-    id NT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     opportunity_id INT NOT NULL,
-    user_id BIGINT NOT NULL,
+    user_id INT NOT NULL,
     title VARCHAR(150) NOT NULL,
     goal TEXT,
     aimed_skills TEXT[],
@@ -84,13 +92,13 @@ CREATE TABLE ai_plans (
 );
 
 CREATE TABLE daily_tasks (
-    id BIGSERIAL PRIMARY KEY,
-    plan_id BIGINT NOT NULL,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    plan_id INT NOT NULL,
     name VARCHAR(150) NOT NULL,
     user_submission TEXT,
     ai_feedback TEXT,
     task_date DATE NOT NULL,
-    status VARCHAR(20) DEFAULT 'not_started',
+    status VARCHAR(20) DEFAULT 'not_started' NOT NULL,
     task_order SMALLINT,
     created_at TIMESTAMP DEFAULT NOW(),
 
@@ -116,7 +124,7 @@ CREATE TABLE articles (
 CREATE TABLE likes (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id INT NOT NULL,
-    article_id BIGINT NOT NULL,
+    article_id INT NOT NULL,
     liked_at TIMESTAMP DEFAULT NOW(),
 
     CONSTRAINT fk_likes_user
@@ -131,3 +139,15 @@ CREATE TABLE likes (
     CONSTRAINT unique_user_article UNIQUE (user_id, article_id)
 );
 
+
+ALTER TABLE users RENAME COLUMN possword TO password;
+ALTER TABLE users RENAME COLUMN username TO name;
+
+
+
+ALTER TABLE users
+ADD COLUMN IF NOT EXISTS reset_token VARCHAR(255);
+
+CREATE INDEX IF NOT EXISTS idx_users_reset_token ON users(reset_token);
+
+DROP TABLE survey_responses;
